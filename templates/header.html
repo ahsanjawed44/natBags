@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- title -->
+	<title>NAT Bags</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="../static/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&amp;display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="../static/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="../static/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="../static/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="../static/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="../static/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="../static/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="../static/css/responsive.css">
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a href="{% url 'index' %}">
+								<img src="../static/img/logo.png" alt="">
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li class="{% if request.path == '/' %} current-list-item{% endif %}" ><a href="{% url 'index' %}">Home</a></li>
+								<li class="{% if request.path == '/about/' %} current-list-item{% endif %}" ><a href="{% url 'about' %}">About</a></li>
+								<li class="{% if request.path == '/news/' %} current-list-item{% endif %}" ><a href="{% url 'news' %}">News</a></li>
+								<li class="{% if request.path == '/contact/' %} current-list-item{% endif %}" ><a href="{% url 'contact' %}">Contact</a></li>
+								<li class="{% if request.path == '/shop/' %} current-list-item{% endif %}" ><a href="{% url 'shop' %}">Shop</a></li>
+								<li>
+									<div class="header-icons">
+										{% if request.session.customer_id %}
+										<span><a href="{% url 'index' %}" class="customer_info"> Welcome {{ request.session.user_firstname }} </a>/<a href="{% url 'logout' %}">LogOut</a></span>
+										{% else %}
+										<span><a href="{% url 'login' %}"> LogIn </a>/<a href="{% url 'register' %}">Register</a></span>
+										{% endif %}
+										<!-- <a class="shopping-cart {% if request.path == '/cart/' %}current-list-item{% endif %}" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a> -->
+										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+									</div>
+								</li>
+							</ul>
+						</nav>
+						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+						<div class="mobile-menu"></div>
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end header -->
+	
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end search area -->
