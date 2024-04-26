@@ -167,14 +167,34 @@
 
 }(jQuery));
 
-const pass_field = document.querySelector('.pass-key');
+
+const passField = document.querySelector('.pass-key');
 const showBtn = document.querySelector('.show');
-showBtn.addEventListener('click', function(){
-   if(pass_field.type === "password"){
-   pass_field.type = "text";
-   showBtn.className= "fa fa-eye-slash";
- }else{
-   pass_field.type = "password";
-   showBtn.className= "fa fa-eye";
- }
+
+showBtn.addEventListener('click', function() {
+    if (passField.type === "password") {
+        passField.type = "text";
+        showBtn.classList.remove("fa-eye");
+        showBtn.classList.add("fa-eye-slash");
+        // Optionally add an aria-label to make it clear to screen readers
+        showBtn.setAttribute("aria-label", "Hide password");
+    } else {
+        passField.type = "password";
+        showBtn.classList.remove("fa-eye-slash");
+        showBtn.classList.add("fa-eye");
+        // Optionally add an aria-label to make it clear to screen readers
+        showBtn.setAttribute("aria-label", "Show password");
+    }
 });
+
+// const pass_field = document.querySelector('.pass-key');
+// const showBtn = document.querySelector('.show');
+// showBtn.addEventListener('click', function(){
+//    if(pass_field.type === "password"){
+//    pass_field.type = "text";
+//    showBtn.className= "fa fa-eye-slash";
+//  }else{
+//    pass_field.type = "password";
+//    showBtn.className= "fa fa-eye";
+//  }
+// });
