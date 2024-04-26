@@ -54,17 +54,17 @@ def register(request):
         eml=request.POST["email"]
         pwd=request.POST["password"]
 
-        if Customer.objects.filter(email=eml).exists() :
+        if Customer.objects.filter(customer_email=eml).exists() :
             messages.error(request , 'Email Already Exist')
-            return redirect('/register')
+            return redirect('/userRegister')
         else:
             new_user=Customer(customer_name=fname,customer_email=eml,customer_password=pwd)
             new_user.save()
-            customer = Customer.objects.get(email=eml , password=pwd)
+            customer = Customer.objects.get(customer_email=eml , customer_password=pwd)
             if customer is not None:
 
                 request.session['customer_id'] = customer.id
-                request.session['customer_name'] = customer.firstName
+                request.session['customer_name'] = customer.customer_name
                 
             
                 return redirect('/')
@@ -79,16 +79,16 @@ def login(request):
         pwd = request.POST['password']
 
         try:
-            customer = Customer.objects.get(email=eml , password=pwd)
+            customer = Customer.objects.get(customer_email=eml , customer_password=pwd)
 
             request.session['customer_id'] = customer.id
-            request.session['customer_name'] = customer.firstName
-            
-        
+            request.session['customer_name'] = customer.customer_name
             return redirect('/')
+        
+
         except Customer.DoesNotExist:
             messages.error(request,'Invalid Email And Password')
-            return redirect ('/')
+            return redirect ('/userLogin')
 
     return render(request, 'login.html')
 
