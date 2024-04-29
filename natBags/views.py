@@ -52,12 +52,17 @@ def singleNews(request,newsid):
     }
     return render(request,'single-news.html',data)
 
-def singleProduct(request):
-    return render(request,'single-product.html')
+def singleProduct(request,productid):
+    productDetail=product.objects.get(id=productid)
+    data={
+     'productDetail':productDetail   
+    }
+    return render(request,'single-product.html',data)
 
-#Dashboard
-def dashboard(request):
-    pass
+
+
+
+
 
 
 # Not found errror

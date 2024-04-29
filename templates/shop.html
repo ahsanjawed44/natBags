@@ -42,11 +42,10 @@
 				<div class="col-lg-4 col-md-6 text-center {{p.product_catagory}}">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="{% url 'singleProduct' %}"><img src="../Media/{{ p.product_image }}" alt=""></a>
+							<a href="/productDetail/{{p.id}}"><img src="../Media/{{ p.product_image }}" alt=""></a>
 						</div>
 						<h3>{{p.product_name}}</h3>
-						<p class="product-price">RS {{p.product_price}}.00
-							<span>({{p.product_quantity}})</span>
+						<p class="product-price">Rs {{p.product_price}}.00 <span>({{p.product_quantity}})</span>
 						</p>
 						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>

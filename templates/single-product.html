@@ -22,20 +22,20 @@
 			<div class="row">
 				<div class="col-md-5">
 					<div class="single-product-img">
-						<img src="../static/img/products/product-img-5.jpg" alt="">
+						<img src="../Media/{{productDetail.product_image}}" alt="">
 					</div>
 				</div>
 				<div class="col-md-7">
 					<div class="single-product-content">
-						<h3>Green apples have polyphenols</h3>
-						<p class="single-product-pricing"><span>Per Kg</span> $50</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint dignissimos, rem commodi cum voluptatem quae reprehenderit repudiandae ea tempora incidunt ipsa, quisquam animi perferendis eos eum modi! Tempora, earum.</p>
+						<h3>{{productDetail.product_name}}</h3>
+						<p class="single-product-pricing">Rs {{productDetail.product_price}}.00 <span>({{productDetail.product_quantity}})</span></p>
+						<p>{{productDetail.product_details}}</p>
 						<div class="single-product-form">
 							<form action="#">
 								<input type="number" placeholder="0">
 							</form>
 							<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-							<p><strong>Categories: </strong>Fruits, Organic</p>
+							<p><strong>Categories: </strong>{{productDetail.product_catagory}}</p>
 						</div>
 						<h4>Share:</h4>
 						<ul class="product-share">
@@ -115,36 +115,21 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
+				{% for p in products %}
+				<div class="col-lg-4 col-md-6 text-center {{p.product_catagory}}">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="{% url 'singleProduct' %}"><img src="../static/img/products/product-img-1.jpg" alt=""></a>
+							<a href="{% url 'singleProduct' %}"><img src="../Media/{{ p.product_image }}" alt=""></a>
 						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"><span>Per Kg</span> 85$ </p>
+						<h3>{{p.product_name}}</h3>
+						<p class="product-price">RS {{p.product_price}}.00 
+							<span>({{p.product_quantity}})</span>
+						</p>
 						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="{% url 'singleProduct' %}"><img src="../static/img/products/product-img-2.jpg" alt=""></a>
-						</div>
-						<h3>Berry</h3>
-						<p class="product-price"><span>Per Kg</span> 70$ </p>
-						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="{% url 'singleProduct' %}"><img src="../static/img/products/product-img-3.jpg" alt=""></a>
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"><span>Per Kg</span> 35$ </p>
-						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
+				{% endfor %}
+
 			</div>
 		</div>
 	</div>

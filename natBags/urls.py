@@ -31,7 +31,7 @@ urlpatterns = [
     path('services/', views.services, name='services'),
     path('cart/', views.cart, name='cart'),
     path('checkout/', views.checkout, name='checkout'),
-    path('productDetail/',views.singleProduct,name='singleProduct'),
+    path('productDetail/<productid>',views.singleProduct,name='singleProduct'),
     path('newsDetail/<newsid>',views.singleNews, name='singleNews'),
     path('error',views.error, name='notFound'),
 

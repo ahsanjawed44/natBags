@@ -2444,8 +2444,9 @@ a.cart-btn i {
 }
 
 .single-product-content h3 {
-  font-size: 22px;
+  font-size: 32px;
   font-weight: 600;
+  margin-bottom: 15px;
 }
 
 p.single-product-pricing span {
@@ -2463,7 +2464,7 @@ p.single-product-pricing span {
 }
 
 .single-product-content p.single-product-pricing {
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 700;
   margin-bottom: 10px;
   color: #051922;
