@@ -26,9 +26,12 @@
                     <div class="product-filters">
                         <ul>
                             <li class="active" data-filter="*">All</li>
-                            <li data-filter=".strawberry">Handbags</li>
-                            <li data-filter=".berry">Backpacks</li>
-                            <li data-filter=".lemon">Tote Bag</li>
+                            <li data-filter=".Handbags">Handbags</li>
+                            <li data-filter=".Backpacks">Backpacks</li>
+                            <li data-filter=".Crossbody">Crossbody Bag</li>
+                            <li data-filter=".Totebag">Tote Bag</li>
+                            <li data-filter=".Clutches">Clutches</li>
+                            <li data-filter=".Laptop">Laptop Bag</li>
                         </ul>
                     </div>
                 </div>
@@ -42,7 +45,9 @@
 							<a href="{% url 'singleProduct' %}"><img src="../Media/{{ p.product_image }}" alt=""></a>
 						</div>
 						<h3>{{p.product_name}}</h3>
-						<p class="product-price">RS {{p.product_price}}.00</p>
+						<p class="product-price">RS {{p.product_price}}.00
+							<span>({{p.product_quantity}})</span>
+						</p>
 						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>

@@ -87,7 +87,9 @@
 							<a href="{% url 'singleProduct' %}"><img src="../Media/{{ p.product_image }}" alt=""></a>
 						</div>
 						<h3>{{p.product_name}}</h3>
-						<p class="product-price">RS {{p.product_price}}.00 </p>
+						<p class="product-price">RS {{p.product_price}}.00 
+							<span>({{p.product_quantity}})</span>
+						</p>
 						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
