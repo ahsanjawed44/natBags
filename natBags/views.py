@@ -1,13 +1,20 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from requests import Session
-from Customer.models import Customer
+from Customer.models import *
+from News.models import *
+from Shop.models import *
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 
 
 def index(request):
-    return render(request,"index.html")
+    newsData=news.objects.all()[:3]
+    productData=product.objects.all()[:3]
+    data={
+        'news':newsData,'products':productData
+        }
+    return render(request,"index.html",data)
 
 def about(request):
     return render(request,'about.html')
@@ -16,10 +23,18 @@ def contact(request):
     return render(request,'contact.html')
 
 def shop(request):
-    return render(request,'shop.html')
+    productData=product.objects.all()
+    data={
+        'products':productData
+        }
+    return render(request,'shop.html',data)
 
-def news(request):
-    return render(request,'news.html')
+def newsPage(request):
+    newsData=news.objects.all()
+    data={
+        'news':newsData
+        }
+    return render(request,'news.html',data)
 
 def services(request):
    return render(request,'services.html')
@@ -30,8 +45,12 @@ def cart(request):
 def checkout(request):
     return render(request,'checkout.html')
 
-def singleNews(request):
-    return render(request,'single-news.html')
+def singleNews(request,newsid):
+    newsDetail=news.objects.get(id=newsid)
+    data={
+     'newsDetail':newsDetail   
+    }
+    return render(request,'single-news.html',data)
 
 def singleProduct(request):
     return render(request,'single-product.html')

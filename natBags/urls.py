@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from natBags import views
+# for Media
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,16 +27,16 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('shop/', views.shop, name='shop'),
-    path('news/', views.news, name='news'),
+    path('news/', views.newsPage, name='news'),
     path('services/', views.services, name='services'),
     path('cart/', views.cart, name='cart'),
     path('checkout/', views.checkout, name='checkout'),
-    path('singleProduct/',views.singleProduct,name='singleProduct'),
-    path('singleNews/',views.singleNews, name='singleNews'),
+    path('productDetail/',views.singleProduct,name='singleProduct'),
+    path('newsDetail/<newsid>',views.singleNews, name='singleNews'),
     path('error',views.error, name='notFound'),
 
     path('userLogin/',views.login, name='login'),
     path('userRegister/',views.register, name='register'),
     path('userLogout/',views.logout, name='logout'),
     
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
