@@ -90,7 +90,11 @@
 						<p class="product-price">Rs {{p.product_price}}.00 
 							<span>({{p.product_quantity}})</span>
 						</p>
+						{% if request.session.customer_id %}
 						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						{% else %}
+						<a href="{% url 'login' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						{% endif %}
 					</div>
 				</div>
 				{% endfor %}

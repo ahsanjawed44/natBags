@@ -6,6 +6,7 @@ from News.models import *
 from Shop.models import *
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -23,9 +24,19 @@ def contact(request):
     return render(request,'contact.html')
 
 def shop(request):
-    productData=product.objects.all()
+    shopData=product.objects.all()
+    paginator=Paginator(shopData,3)
+    page_number=request.GET.get('page')
+    shopDatafinal=paginator.get_page(page_number)
+    totalpage=shopDatafinal.paginator.num_pages
+
+
+
+
     data={
-        'products':productData
+        'products':shopDatafinal,
+        'lastpage':totalpage,
+        'totalpagelist':[n+1 for n in range(totalpage)]
         }
     return render(request,'shop.html',data)
 

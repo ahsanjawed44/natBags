@@ -47,7 +47,11 @@
 						<h3>{{p.product_name}}</h3>
 						<p class="product-price">Rs {{p.product_price}}.00 <span>({{p.product_quantity}})</span>
 						</p>
+						{% if request.session.customer_id %}
 						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						{% else %}
+						<a href="{% url 'login' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						{% endif %}
 					</div>
 				</div>
 				{% endfor %}
@@ -57,11 +61,17 @@
 				<div class="col-lg-12 text-center">
 					<div class="pagination-wrap">
 						<ul>
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a class="active" href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">Next</a></li>
+							{% if products.has_previous %}
+							<li><a href="/shop/?page=1">First</a></li>
+							<li><a href="/shop/?page={{products.previous_page_number}}">Prev</a></li>
+							{% endif %}
+							{% for n in totalpagelist %}
+							<li><a href="/shop/?page={{n}}">{{n}} </a></li>
+							{% endfor %}
+							{% if products.has_next %}
+							<li><a href="/shop/?page={{products.next_page_number}}">Next</a></li>
+							<li><a href="/shop/?page={{lastpage}}">Last</a></li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>
