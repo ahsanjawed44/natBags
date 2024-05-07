@@ -2646,7 +2646,7 @@ tr.total-data td strong {
   padding: 20px;
 }
 
-.billing-address-form form p input {
+.billing-address-form form p input , .billing-address-form form p select {
   border: 1px solid #ddd;
   padding: 15px;
   width: 100%;

@@ -31,10 +31,16 @@
 						<p class="single-product-pricing">Rs {{productDetail.product_price}}.00 <span>({{productDetail.product_quantity}})</span></p>
 						<p>{{productDetail.product_details}}</p>
 						<div class="single-product-form">
-							<form action="#">
-								<input type="number" placeholder="0">
-							</form>
-							<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						
+								<!-- {% csrf_token %} -->
+								{% if request.session.customer_id %}
+								<a href="{% url 'add-to-cart' productDetail.id %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+								
+								{% else %}
+								<!-- <input type="number" placeholder="0" min="0" name="qty"> -->
+								<a href="{% url 'login' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+								{% endif %}
+							
 							<p><strong>Categories: </strong>{{productDetail.product_catagory}}</p>
 						</div>
 						<h4>Share:</h4>
@@ -125,7 +131,7 @@
 						<p class="product-price">RS {{p.product_price}}.00 
 							<span>({{p.product_quantity}})</span>
 						</p>
-						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a href="{% url 'add-to-cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				{% endfor %}

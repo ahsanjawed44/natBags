@@ -11,3 +11,13 @@ class catagoryAdmin(admin.ModelAdmin):
     list_display=['catagory_name']
 
 admin.site.register(catagory,catagoryAdmin)
+
+class cartAdmin(admin.ModelAdmin):
+    list_display=['Customer']
+
+admin.site.register(cart,cartAdmin)
+
+class cartItemAdmin(admin.ModelAdmin):
+    list_display=['cartF','productF','quantity']
+
+admin.site.register(cartItems,cartItemAdmin)

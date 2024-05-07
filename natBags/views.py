@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
 from requests import Session
 from Customer.models import *
@@ -30,9 +30,6 @@ def shop(request):
     shopDatafinal=paginator.get_page(page_number)
     totalpage=shopDatafinal.paginator.num_pages
 
-
-
-
     data={
         'products':shopDatafinal,
         'lastpage':totalpage,
@@ -40,28 +37,7 @@ def shop(request):
         }
     return render(request,'shop.html',data)
 
-def newsPage(request):
-    newsData=news.objects.all()
-    data={
-        'news':newsData
-        }
-    return render(request,'news.html',data)
 
-def services(request):
-   return render(request,'services.html')
-
-def cart(request):
-    return render(request,'cart.html')
-
-def checkout(request):
-    return render(request,'checkout.html')
-
-def singleNews(request,newsid):
-    newsDetail=news.objects.get(id=newsid)
-    data={
-     'newsDetail':newsDetail   
-    }
-    return render(request,'single-news.html',data)
 
 def singleProduct(request,productid):
     productDetail=product.objects.get(id=productid)
@@ -73,9 +49,87 @@ def singleProduct(request,productid):
 
 
 
+def services(request):
+   return render(request,'services.html')
 
 
 
+
+
+
+
+def checkout(request):
+    return render(request,'checkout.html')
+
+
+
+
+def newsPage(request):
+    newsData=news.objects.all()
+    data={
+        'news':newsData
+        }
+    return render(request,'news.html',data)
+
+
+
+def singleNews(request,newsid):
+    newsDetail=news.objects.get(id=newsid)
+    data={
+     'newsDetail':newsDetail   
+    }
+    return render(request,'single-news.html',data)
+
+
+
+
+def cartPage(request):
+    cartItemData=cartItems.objects.all()
+    cartData=cart.objects.get(pk=1)
+    data={
+        'cartItem':cartItemData,
+        'cart':cartData
+
+        }
+
+    return render(request,'cart.html',data)
+
+
+
+
+def add_to_cart(request,pid):
+    if request.session.get('customer_id'):
+
+        productC = product.objects.get(id=pid)
+        customer = request.session['customer_id']
+        cartInfo, _ = cart.objects.get_or_create(Customer=customer, is_paid=False)
+        cartItem = cartItems.objects.create(cartF=cartInfo, productF=productC)
+        cartItem.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        return redirect("/userLogin/")
+
+
+def remove_cart(request , cid):
+    try:
+        cartItem=cartItems.objects.get(id=cid)
+        cartItem.delete()
+    except Exception as e:
+        print(e)
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+# def update_cart(request,cid):
+#     update_qty = request.GET.get('qty')
+#     cartItem = cartItems.objects.get(id=cid)
+    
+#     if update_qty != cartItem.quantity:
+#         cartItem.quantity = update_qty
+#         cartItem.save()
+#     else:
+#         pass
+#     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+      
 # Not found errror
 def error(request):
     return render(request,'404.html')

@@ -90,11 +90,7 @@
 						<p class="product-price">Rs {{p.product_price}}.00 
 							<span>({{p.product_quantity}})</span>
 						</p>
-						{% if request.session.customer_id %}
-						<a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-						{% else %}
-						<a href="{% url 'login' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-						{% endif %}
+						<a href="{% url 'add-to-cart' p.id %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> View Detail </a>
 					</div>
 				</div>
 				{% endfor %}
@@ -129,7 +125,7 @@
                     <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
                     <!--Countdown Timer-->
                     <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2024/6/20"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
-                	<a href="{% url 'cart' %}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                	<a href="/productDetail/{{product.id}}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> View Detail</a>
                 </div>
             </div>
         </div>
