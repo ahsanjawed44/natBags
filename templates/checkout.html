@@ -36,11 +36,14 @@
 							<div class="card-body">
 								<div class="billing-address-form">
 									<form action="#">
-										<p><input type="text" placeholder="Name"></p>
-										<p><input type="email" placeholder="Email"></p>
+										
 										<p><input type="text" placeholder="Address"></p>
 										<p><input type="tel" placeholder="Phone"></p>
-										
+										<p><select name="cars" id="cars" aria-placeholder="Choose">
+											<option value="#">Choose option</option>
+											<option value="cashOnDelivery">Cash on delivery</option>
+											
+										  </select></p>
 										<p><textarea name="bill" id="bill" cols="30" rows="10"
 												placeholder="Say Something"></textarea></p>
 									</form>
@@ -66,31 +69,25 @@
 								<td>Product</td>
 								<td>Total</td>
 							</tr>
+							{% for c in cartItem %}
 							<tr>
-								<td>Strawberry</td>
-								<td>$85.00</td>
+								<td>{{c.productF.product_name}}</td>
+								<td>Rs {{c.get_product_price}}.00</td>
 							</tr>
-							<tr>
-								<td>Berry</td>
-								<td>$70.00</td>
-							</tr>
-							<tr>
-								<td>Lemon</td>
-								<td>$35.00</td>
-							</tr>
+							{% endfor %}
 						</tbody>
 						<tbody class="checkout-details">
 							<tr>
-								<td>Subtotal</td>
-								<td>$190</td>
+								<td><b>Subtotal</b></td>
+								<td>Rs {{ cart.get_cart_subtotal }}.00</td>
 							</tr>
 							<tr>
-								<td>Shipping</td>
-								<td>$50</td>
+								<td><b>Shipping</b></td>
+								<td>Rs {{ cart.delivery_price }}.00</td>
 							</tr>
 							<tr>
-								<td>Total</td>
-								<td>$240</td>
+								<td><b>Total</b></td>
+								<td><b>Rs {{ cart.get_total }}.00</b></td>
 							</tr>
 						</tbody>
 					</table>

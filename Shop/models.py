@@ -45,14 +45,23 @@ class cart(models.Model):
     Customer=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name='cart')
     is_paid=models.BooleanField(default=False)
     delivery_price=150
+
     def get_cart_subtotal(self):
-        cart_items = self.cart_items.all()  # Assuming you have a related_name set for the cart_items ForeignKey
-        subtotal_price = []
+            cart_items = self.cart_items.all()  # Assuming you have a related_name set for the cart_items ForeignKey
+            subtotal_price = []
+            for ci in cart_items:
+                subtotal_price.append(ci.get_product_price())
+            return sum(subtotal_price)
+     
 
-        for ci in cart_items:
-            subtotal_price.append(ci.get_product_price())
+        
+        # cart_items = self.cart_items.all(cartF__Customer_id=customer_id) 
+        # subtotal_price = []
 
-        return sum(subtotal_price)
+        # for ci in cart_items:
+        #     subtotal_price.append(ci.get_product_price())
+
+        # return sum(subtotal_price)
     
 
     def get_total(self):

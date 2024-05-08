@@ -7,6 +7,7 @@ from Shop.models import *
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def index(request):
@@ -25,7 +26,7 @@ def contact(request):
 
 def shop(request):
     shopData=product.objects.all()
-    paginator=Paginator(shopData,3)
+    paginator=Paginator(shopData,10)
     page_number=request.GET.get('page')
     shopDatafinal=paginator.get_page(page_number)
     totalpage=shopDatafinal.paginator.num_pages
@@ -59,13 +60,39 @@ def services(request):
 
 
 def checkout(request):
-    return render(request,'checkout.html')
+    
+     if 'customer_id' in request.session:
+        customer_id = request.session['customer_id']
+        cartItemData = cartItems.objects.filter(cartF__Customer_id=customer_id)
+        cartData =  cart.objects.get(Customer_id=customer_id) 
+
+        data = {
+            'cartItem': cartItemData,
+            'cart': cartData
+        }
+
+        return render(request, 'checkout.html', data)
+     else:
+        # Handle case where user is not logged in
+        return redirect('/login')
+    
 
 
 
 
 def newsPage(request):
     newsData=news.objects.all()
+    paginator=Paginator(newsData,9)
+    page_number=request.GET.get('page')
+    shopDatafinal=paginator.get_page(page_number)
+    totalpage=shopDatafinal.paginator.num_pages
+
+    data={
+        'news':shopDatafinal,
+        'lastpage':totalpage,
+        'totalpagelist':[n+1 for n in range(totalpage)]
+        }
+
     data={
         'news':newsData
         }
@@ -84,31 +111,83 @@ def singleNews(request,newsid):
 
 
 def cartPage(request):
-    cartItemData=cartItems.objects.all()
-    cartData=cart.objects.get(pk=1)
-    data={
-        'cartItem':cartItemData,
-        'cart':cartData
 
-        }
+    #  if 'customer_id' in request.session:
+    #     customer_id = request.session['customer_id']
+    #     cartItemData = cartItems.objects.filter(cartF__Customer_id=customer_id)
+    #     cartData =  cart.objects.get(Customer_id=customer_id) 
 
-    return render(request,'cart.html',data)
+    #     data = {
+    #         'cartItem': cartItemData,
+    #         'cart': cartData
+    #     }
+
+    #     return render(request, 'cart.html', data)
+    #  else:
+    #     # Handle case where user is not logged in
+        # return redirect('/login')
+     
+    if 'customer_id' in request.session:
+        customer_id = request.session['customer_id']
+        try:
+            cartItemData = cartItems.objects.filter(cartF__Customer_id=customer_id)
+            cartData = cart.objects.get(Customer_id=customer_id)
+
+            data = {
+                'cartItem': cartItemData,
+                'cart': cartData
+            }
+
+            return render(request, 'cart.html', data)
+        except cart.DoesNotExist:
+            # If cart does not exist for the customer, render an empty cart
+            return render(request, 'cart.html', {'cartItem': [], 'cart': None})
+    else:
+        # If customer_id is not in session, render an empty cart
+        return render(request, 'cart.html', {'cartItem': [], 'cart': None})
+
+
+    # cartItemData=cartItems.objects.all()
+    # cartData=cart.objects.get(pk=1)
+    # data={
+    #     'cartItem':cartItemData,
+    #     'cart':cartData
+
+    #     }
+
+    # return render(request,'cart.html',data)
 
 
 
 
 def add_to_cart(request,pid):
-    if request.session.get('customer_id'):
+    # if request.session.get('customer_id'):
+    #     productC = product.objects.get(id=pid)
+    #     customer = request.session['customer_id']
 
+    #     cartInfo = cart.objects.get_or_create(Customer=customer, is_paid=False)
+    #     cartItem = cartItems.objects.create(cartF=cartInfo, productF=productC)
+    #     cartItem.save()
+    #     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    # else:
+    #     return redirect("/userLogin/")
+
+    if request.session.get('customer_id'):
         productC = product.objects.get(id=pid)
-        customer = request.session['customer_id']
-        cartInfo, _ = cart.objects.get_or_create(Customer=customer, is_paid=False)
+        customer_id = request.session['customer_id']
+        
+        # Fetch the Customer instance using the customer_id
+        customer = Customer.objects.get(id=customer_id)
+
+        # Assuming your cart model has a field named "Customer"
+        # which is a ForeignKey to the Customer model
+        cartInfo, created = cart.objects.get_or_create(Customer=customer, is_paid=False)
+        
         cartItem = cartItems.objects.create(cartF=cartInfo, productF=productC)
         cartItem.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     else:
         return redirect("/userLogin/")
-
 
 def remove_cart(request , cid):
     try:
@@ -192,3 +271,14 @@ def logout(request):
         Session.objects.filter(session_key=session_key).delete()
     # Redirect to the index page or any other page
     return redirect('index')
+def plus(request, cid):
+    cartItem=cartItems.objects.get(id=cid)
+    cartItem.quantity += 1  # Increment the quantity
+    cartItem.save() 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def minus(request,cid):
+     cartItem=cartItems.objects.get(id=cid)
+     cartItem.quantity -= 1  # Increment the quantity
+     cartItem.save() 
+     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

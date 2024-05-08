@@ -65,7 +65,7 @@
 								<li>
 									<div class="header-icons">
 										{% if request.session.customer_id %}
-										<span><a href="{% url 'index' %}" class="customer_info"> Welcome {{ request.session.customer_name }} </a>/<a href="{% url 'logout' %}">LogOut</a></span>
+										<span><a href="{% url 'index' %}" class="customer_info"> Welcome {{ request.session.customer_name }} </a>/<a href="{% url 'logout' %}">LogOut</a><a href="/cart/"><i class="fas fa-shopping-cart"></i></a></span>
 										{% else %}
 										<span><a href="{% url 'login' %}"> LogIn </a>/<a href="{% url 'register' %}">Register</a></span>
 										{% endif %}

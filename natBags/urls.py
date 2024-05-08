@@ -37,6 +37,10 @@ urlpatterns = [
     path('productDetail/<productid>',views.singleProduct,name='singleProduct'),
     path('newsDetail/<newsid>',views.singleNews, name='singleNews'),
 
+    path('plus/<int:cid>',views.plus, name='plus'),
+    path('minus/<cid>',views.minus, name='minus'),
+
+    
 
     path('error',views.error, name='notFound'),
 

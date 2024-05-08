@@ -44,11 +44,16 @@
 						<div class="col-lg-12 text-center">
 							<div class="pagination-wrap">
 								<ul>
-									<li><a href="#">Prev</a></li>
-									<li><a href="#">1</a></li>
-									<li><a class="active" href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">Next</a></li>
+									{% if products.has_previous %}
+							<li><a href="/news/?page=1">First</a></li>
+							<li><a href="/news/?page={{news.previous_page_number}}">Prev</a></li>
+							{% endif %}
+							{% for n in totalpagelist %}
+							<li><a href="/news/?page={{n}}">{{n}} </a></li>
+							{% endfor %}
+							{% if products.has_next %}
+							<li><a href="/news/?page={{news.next_page_number}}">Next</a></li>
+							<li><a href="/news/?page={{lastpage}}">Last</a></li>
 								</ul>
 							</div>
 						</div>
