@@ -127,3 +127,11 @@ STATICFILES_DIRS= (BASE_DIR,'static')
 
 MEDIA_ROOT=BASE_DIR/'Media'
 MEDIA_URL='Media/'
+
+
+# Email setup
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER ='bc200406540@vu.edu.pk'
+EMAIL_HOST_PASSWORD ='Study11-'
+EMAIL_USE_TLS = True

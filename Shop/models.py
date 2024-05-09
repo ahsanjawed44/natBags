@@ -7,14 +7,6 @@ class catagory(models.Model):
 
     def __str__(self):
         return self.catagory_name
-# Rating={
-#     ('1','★☆☆☆☆'),
-#     ('2','★★☆☆☆'),
-#     ('3','★★★☆☆'),
-#     ('4','★★★★☆'),
-#     ('5','★★★★★')
-# }
-
 
 
 
@@ -54,16 +46,6 @@ class cart(models.Model):
                 subtotal_price.append(ci.get_product_price())
             return sum(subtotal_price)
      
-
-        
-        # cart_items = self.cart_items.all(cartF__Customer_id=customer_id) 
-        # subtotal_price = []
-
-        # for ci in cart_items:
-        #     subtotal_price.append(ci.get_product_price())
-
-        # return sum(subtotal_price)
-    
 
     def get_total(self):
         subtotal=self.get_cart_subtotal()

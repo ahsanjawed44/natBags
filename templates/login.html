@@ -23,6 +23,13 @@
          <div class="logo"><a href="{% url 'index' %}"><img src="../static/img/logo.png" alt=""></a></div>
          <div class="content-log">
             <header>Login Form</header>
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li style="color: white;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
             <form action="/userLogin/" method="post">
                {% csrf_token %}
                <div class="field">

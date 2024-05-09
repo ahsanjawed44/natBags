@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.shortcuts import render,redirect
 from requests import Session
 from Customer.models import *
@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
+import uuid
 
 
 def index(request):
@@ -95,7 +97,8 @@ def services(request):
     return render(request,'services.html', data)
 
 
-
+def order(request):
+      customerName = request.session.get('customer_name')
 
 
 
@@ -253,65 +256,139 @@ def remove_cart(request , cid):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-# def update_cart(request,cid):
-#     update_qty = request.GET.get('qty')
-#     cartItem = cartItems.objects.get(id=cid)
-    
-#     if update_qty != cartItem.quantity:
-#         cartItem.quantity = update_qty
-#         cartItem.save()
-#     else:
-#         pass
-#     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+def order(request):
+    # Check if the user is logged in
+    if request.method == "POST":
+        address = request.POST["address"]
+        phone = request.POST["email"]
+        pwd = request.POST["password"]
+        if 'customer_id' not in request.session:
+            customer_name = request.session.get('customer_name')
+            customer_email = request.session.get('customer_email')
+
       
 # Not found errror
 def error(request):
     return render(request,'404.html')
 
+# Send Email
 
+def send_email_token(email, token):
+    try:
+        subject = "Email Verification"
+        message = f"Please click on the following link to verify your email: http://127.0.0.1:8000/verify/{token}"
+        email_from = settings.EMAIL_HOST_USER
+        recipients_list = [email]
+        send_mail(subject, message, email_from, recipients_list)
+        return True
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False
 
-# Authantication
 def register(request):
-    if request.method=="POST":
-        fname=request.POST["firstName"]
-        eml=request.POST["email"]
-        pwd=request.POST["password"]
+    if request.method == "POST":
+        fname = request.POST["firstName"]
+        eml = request.POST["email"]
+        pwd = request.POST["password"]
 
-        if Customer.objects.filter(customer_email=eml).exists() :
-            messages.error(request , 'Email Already Exist')
+        if Customer.objects.filter(customer_email=eml).exists():
+            messages.error(request, 'Email Already Exists')
             return redirect('/userRegister')
         else:
-            new_user=Customer(customer_name=fname,customer_email=eml,customer_password=pwd)
-            new_user.save()
-            customer = Customer.objects.get(customer_email=eml , customer_password=pwd)
-            if customer is not None:
+            # Create a new user with email verification pending
+            email_token = str(uuid.uuid4())
+            new_user = Customer.objects.create(customer_name=fname, customer_email=eml, customer_password=pwd, email_token=email_token)
+            # Send verification email
+            send_email_token(eml, email_token)
+            # Redirect to a page informing the user to check their email for verification
+            return render(request, "404.html")
+    return render(request, "register.html")
 
-                request.session['customer_id'] = customer.id
-                request.session['customer_name'] = customer.customer_name
-                
+def verify(request, token):
+    try:
+        # Find the customer by email token
+        customer = Customer.objects.get(email_token=token)
+        # Mark the email as verified
+        customer.is_verified = True
+        customer.save()
+        # Redirect the user to a success page
+        return render(request, "login.html")
+    except Customer.DoesNotExist:
+        return HttpResponse('Invalid token')
+
+
+
+# def send_email_token(email,token):
+#     try:
+#         subject="Test email"
+#         massage="Verify your acccount by clicking on this link. http://127.0.0.1:8000/verify/{token}"
+#         email_from= settings.EMAIL_HOST_USER
+#         recipents_list=[email, ]
+#         send_mail(subject,massage,email_from,recipents_list)
+
+#     except Exception as e:
+#         return False
+    
+#     return True 
+
+
+# def verify(request,token):
+#     try:
+#         pObj=profile.objects.get(email_token=token)
+#         pObj.is_verified=True
+#         pObj.save()
+#         return render(request,"login.html")
+#     except Exception as e:
+#         return HttpResponse('Envalid token',)
+
+# # Authantication
+# def register(request):
+#     if request.method=="POST":
+#         fname=request.POST["firstName"]
+#         eml=request.POST["email"]
+#         pwd=request.POST["password"]
+
+#         if Customer.objects.filter(customer_email=eml).exists() :
+#             messages.error(request , 'Email Already Exist')
+#             return redirect('/userRegister')
+#         else:
+#             new_user=Customer(customer_name=fname,customer_email=eml,customer_password=pwd)
+#             new_user.save()
+
+#             p_obj= profile.objects.create(
+#                 customer=new_user.customer_name,
+#                 email_token=str(uuid.uuid4())
+#             )
+#             send_email_token(eml,p_obj.email_token)
             
-                return redirect('/')
+#             # customer = Customer.objects.get(customer_email=eml , customer_password=pwd)
+#             # if customer is not None:
 
-    return render(request,"register.html")
+#             #     request.session['customer_id'] = customer.id
+#             #     request.session['customer_name'] = customer.customer_name
+                
+#             #     return redirect('/')
+
+#     return render(request,"register.html")
 
 
 
 def login(request):
-    if request.method == 'POST':
-        eml = request.POST['email']
-        pwd = request.POST['password']
+    if request.method == "POST":
+        email = request.POST["email"]
+        password = request.POST["password"]
 
         try:
-            customer = Customer.objects.get(customer_email=eml , customer_password=pwd)
-
-            request.session['customer_id'] = customer.id
-            request.session['customer_name'] = customer.customer_name
-            return redirect('/')
-        
-
+            customer = Customer.objects.get(customer_email=email)
+            if customer.customer_password == password:
+                if customer.is_verified:
+                    request.session['customer_id'] = customer.id
+                    request.session['customer_name'] = customer.customer_name
+                    return redirect('/')
+                else:
+                    messages.error(request, 'Your email is not verified. Verify it from your Gmail account.')
         except Customer.DoesNotExist:
-            messages.error(request,'Invalid Email And Password')
-            return redirect ('/userLogin')
+            messages.error(request, 'Invalid email or password')
 
     return render(request, 'login.html')
 

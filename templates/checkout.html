@@ -35,18 +35,18 @@
 							</div>
 							<div class="card-body">
 								<div class="billing-address-form">
-									<form action="#">
-										
-										<p><input type="text" placeholder="Address"></p>
-										<p><input type="tel" placeholder="Phone"></p>
-										<p><select name="cars" id="cars" aria-placeholder="Choose">
-											<option value="#">Choose option</option>
-											<option value="cashOnDelivery">Cash on delivery</option>
-											
-										  </select></p>
-										<p><textarea name="bill" id="bill" cols="30" rows="10"
-												placeholder="Say Something"></textarea></p>
-									</form>
+									<form action="/order-confirmation" method="post">
+										{% csrf_token %}
+										<p><input type="text" placeholder="Address" name="address" required></p>
+										<p><input type="tel" placeholder="Phone" name="phone" max="11" required></p>
+										<p><select name="payment" id="payment" aria-placeholder="Choose">
+												<option value="#">Choose option</option>
+												<option value="cashOnDelivery" selected>Cash on delivery</option>
+											</select></p>
+										<p><textarea name="special" id="special" cols="30" rows="8"
+												placeholder="Write your special requirements here."></textarea></p>
+
+
 								</div>
 							</div>
 
@@ -91,7 +91,9 @@
 							</tr>
 						</tbody>
 					</table>
+					<form action=""></form>
 					<a href="#" class="boxed-btn">Place Order</a>
+					</form>
 				</div>
 			</div>
 		</div>
