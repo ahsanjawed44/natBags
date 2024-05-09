@@ -40,6 +40,10 @@ urlpatterns = [
     path('plus/<int:cid>',views.plus, name='plus'),
     path('minus/<cid>',views.minus, name='minus'),
 
+    # start product review urls
+    path('PlaceReview', views.PlaceReview, name='PlaceReview'),
+    # end product review urls
+
     
 
     path('error',views.error, name='notFound'),

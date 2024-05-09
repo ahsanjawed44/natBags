@@ -21,3 +21,9 @@ class cartItemAdmin(admin.ModelAdmin):
     list_display=['cartF','productF','quantity']
 
 admin.site.register(cartItems,cartItemAdmin)
+
+
+class feedbackAdmin(admin.ModelAdmin):
+    list_display=['userid','productid','rating', 'date']
+
+admin.site.register(review_product,feedbackAdmin)

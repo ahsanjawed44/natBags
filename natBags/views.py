@@ -11,20 +11,44 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 def index(request):
+
+    customer_id = request.session.get('customer_id')
+
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+
     newsData=news.objects.all()[:3]
     productData=product.objects.all()[:3]
     data={
-        'news':newsData,'products':productData
-        }
+        'news':newsData,
+        'products':productData,
+        'cartItemCount': cartItemCount
+    }
+    
     return render(request,"index.html",data)
 
 def about(request):
-    return render(request,'about.html')
+    customer_id = request.session.get('customer_id')
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+
+    data={
+        'cartItemCount':cartItemCount
+    }
+
+    return render(request,'about.html', data)
 
 def contact(request):
-    return render(request,'contact.html')
+    customer_id = request.session.get('customer_id')
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+    data={
+        'cartItemCount':cartItemCount
+    }
+    return render(request,'contact.html', data)
 
 def shop(request):
+
+    customer_id = request.session.get('customer_id')
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+
     shopData=product.objects.all()
     paginator=Paginator(shopData,10)
     page_number=request.GET.get('page')
@@ -34,16 +58,26 @@ def shop(request):
     data={
         'products':shopDatafinal,
         'lastpage':totalpage,
-        'totalpagelist':[n+1 for n in range(totalpage)]
+        'totalpagelist':[n+1 for n in range(totalpage)],
+        'cartItemCount':cartItemCount
         }
     return render(request,'shop.html',data)
 
 
 
 def singleProduct(request,productid):
-    productDetail=product.objects.get(id=productid)
+    customer_id = request.session.get('customer_id')
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+
+    productDetail=product.objects.get(id=productid)    
+    reviewData = review_product.objects.filter(productid=productid)
+    review_count = review_product.objects.filter(productid=productid).count()
+    
     data={
-     'productDetail':productDetail   
+     'productDetail':productDetail,
+     'reviewData': reviewData,
+     'review_count': review_count,
+     'cartItemCount': cartItemCount
     }
     return render(request,'single-product.html',data)
 
@@ -51,7 +85,14 @@ def singleProduct(request,productid):
 
 
 def services(request):
-   return render(request,'services.html')
+    customer_id = request.session.get('customer_id')
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+
+    data={
+        'cartItemCount':cartItemCount   
+    }
+
+    return render(request,'services.html', data)
 
 
 
@@ -61,18 +102,22 @@ def services(request):
 
 def checkout(request):
     
-     if 'customer_id' in request.session:
+    customer_id = request.session.get('customer_id')
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+
+    if 'customer_id' in request.session:
         customer_id = request.session['customer_id']
         cartItemData = cartItems.objects.filter(cartF__Customer_id=customer_id)
         cartData =  cart.objects.get(Customer_id=customer_id) 
 
         data = {
             'cartItem': cartItemData,
-            'cart': cartData
+            'cart': cartData,
+            'cartItemCount': cartItemCount
         }
 
         return render(request, 'checkout.html', data)
-     else:
+    else:
         # Handle case where user is not logged in
         return redirect('/login')
     
@@ -81,6 +126,10 @@ def checkout(request):
 
 
 def newsPage(request):
+
+    customer_id = request.session.get('customer_id')
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+
     newsData=news.objects.all()
     paginator=Paginator(newsData,9)
     page_number=request.GET.get('page')
@@ -90,20 +139,22 @@ def newsPage(request):
     data={
         'news':shopDatafinal,
         'lastpage':totalpage,
-        'totalpagelist':[n+1 for n in range(totalpage)]
-        }
-
-    data={
-        'news':newsData
-        }
+        'totalpagelist':[n+1 for n in range(totalpage)],
+        'cartItemCount': cartItemCount
+    }
+    
     return render(request,'news.html',data)
 
 
 
 def singleNews(request,newsid):
+    customer_id = request.session.get('customer_id')
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+
     newsDetail=news.objects.get(id=newsid)
     data={
-     'newsDetail':newsDetail   
+     'newsDetail':newsDetail,
+     'cartItemCount': cartItemCount
     }
     return render(request,'single-news.html',data)
 
@@ -127,6 +178,9 @@ def cartPage(request):
     #     # Handle case where user is not logged in
         # return redirect('/login')
      
+    customer_id = request.session.get('customer_id')
+    cartItemCount = cartItems.objects.filter(cartF=customer_id).count()
+
     if 'customer_id' in request.session:
         customer_id = request.session['customer_id']
         try:
@@ -135,7 +189,8 @@ def cartPage(request):
 
             data = {
                 'cartItem': cartItemData,
-                'cart': cartData
+                'cart': cartData,
+                'cartItemCount': cartItemCount
             }
 
             return render(request, 'cart.html', data)
@@ -282,3 +337,28 @@ def minus(request,cid):
      cartItem.quantity -= 1  # Increment the quantity
      cartItem.save() 
      return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def PlaceReview(request):
+    if request.method == "POST":
+        rate = request.POST["rate"]
+        comment = request.POST["comment"]
+        productid = request.POST["productid"]
+        customer_id = request.session.get('customer_id')
+
+        if customer_id:
+            try:
+                customer = Customer.objects.get(id=customer_id)
+                product_instance = product.objects.get(id=productid)
+                review = review_product(userid=customer, productid=product_instance, review=comment, rating=rate)
+                review.save()
+
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            except Customer.DoesNotExist:
+                return HttpResponse("Customer does not exist.")  # Handle this case as per your requirement
+            except product.DoesNotExist:
+                return HttpResponse("Product does not exist.")  # Handle this case as per your requirement
+        else:
+            return HttpResponse("Customer ID not found in session.")  # Handle this case as per your requirement
+    else:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

@@ -15,11 +15,7 @@ class catagory(models.Model):
 #     ('5','★★★★★')
 # }
 
-# class review_product(models.Model):
-#     user=models.ForeignKey(Customer,on_delete=models.CASCADE,null=False)
-#     review=models.TextField(max_length=1000)
-#     rating=models.IntegerField(choices=Rating,default='None')
-#     date=models.DateField(auto_now_add=True)  
+
 
 
 
@@ -39,7 +35,12 @@ class product(models.Model):
         return self.product_name
 
 
-
+class review_product(models.Model):
+    userid=models.ForeignKey(Customer,on_delete=models.CASCADE,null=False)    
+    productid=models.ForeignKey(product,on_delete=models.CASCADE,null=False)
+    review=models.TextField(max_length=1000)
+    rating=models.CharField(max_length=10, default='0')
+    date=models.DateField(auto_now_add=True)
 
 class cart(models.Model):
     Customer=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name='cart')

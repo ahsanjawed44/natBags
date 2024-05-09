@@ -35,21 +35,25 @@
 							</thead>
 							<tbody>
 								{% for c in cartItem %}
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="{% url 'remove-cart-item' c.id %}"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="../Media/{{ c.productF.product_image }}" alt=""></td>
-									<td class="product-name">{{c.productF.product_name}}</td>
-									<td class="product-price"> Rs {{c.productF.product_price}}.00 </td>
-									<td class="product-quantity">
-										<a href="{% url 'minus' c.id %}" class="btn btn-danger "> - </a>
-										<input type="number" placeholder="0"value="{{c.quantity}}" min="1" name="product-qty" readonly>
-										<a href="{% url 'plus' c.id %}" class="btn btn-success "> + </a> 
-									
-									</td>
-									
-																		
-									<td class="product-total"> Rs {{c.get_product_price}}.00 </td>
-								</tr>
+						
+									{% if cart.is_paid == False %}
+										<tr class="table-body-row">
+											<td class="product-remove"><a href="{% url 'remove-cart-item' c.id %}"><i class="far fa-window-close"></i></a></td>
+											<td class="product-image"><img src="../Media/{{ c.productF.product_image }}" alt=""></td>
+											<td class="product-name">{{c.productF.product_name}}</td>
+											<td class="product-price"> Rs {{c.productF.product_price}}.00 </td>
+											<td class="product-quantity">
+												<a href="{% url 'minus' c.id %}" class="btn btn-danger "> - </a>
+												<input type="number" placeholder="0"value="{{c.quantity}}" min="1" name="product-qty" readonly>
+												<a href="{% url 'plus' c.id %}" class="btn btn-success "> + </a> 
+											
+											</td>
+											
+																				
+											<td class="product-total"> Rs {{c.get_product_price}}.00 </td>
+										</tr>
+									{% endif %}
+								
 								{% endfor %}
 							</tbody>
 						</table>
