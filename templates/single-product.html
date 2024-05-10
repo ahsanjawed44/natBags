@@ -102,9 +102,54 @@
 				<div class="comments-list-wrap">
 					<h3 class="comment-count-title">{{ review_count }} Comments</h3>
 					<div class="comment-list">
-						<div class="single-comment-body">							
+						<div class="single-comment-body">
+
 							{% for rp in reviewData %}
+							
 								<div class="comment-text-body">
+									
+									<div class="row">
+
+
+										<div class="d-flex mb-3">
+
+											{% if rp.rating == '1'%}
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											{% elif rp.rating == '2' %}
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											{% elif rp.rating == '3' %}
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											{% elif rp.rating == '4' %}
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star"></i>
+											{% elif rp.rating == '5' %}
+
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+												<i class="fa fa-star text-warning"></i>
+
+											{% endif %}											
+										</div>
+
+									</div>
+
 									<h4>{{ rp.userid.customer_name }} <span class="comment-date">{{rp.date}}</span></h4>
 									<p>{{rp.review}} </p>
 								</div>

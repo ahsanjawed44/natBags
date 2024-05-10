@@ -13,15 +13,19 @@ class catagoryAdmin(admin.ModelAdmin):
 admin.site.register(catagory,catagoryAdmin)
 
 class cartAdmin(admin.ModelAdmin):
-    list_display=['Customer']
+    list_display=['id','Customer','is_paid']
 
-admin.site.register(cart)
+admin.site.register(cart,cartAdmin)
 
 class cartItemAdmin(admin.ModelAdmin):
-    list_display=['cartF','productF','quantity']
+    list_display=['id','cartF','productF','quantity']
 
 admin.site.register(cartItems,cartItemAdmin)
 
+class orderAdmin(admin.ModelAdmin):
+    list_display=['id','customer_name','customer_email','total_bill','phone','date']
+
+admin.site.register(orderModel,orderAdmin)
 
 class feedbackAdmin(admin.ModelAdmin):
     list_display=['userid','productid','rating', 'date']

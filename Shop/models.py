@@ -1,6 +1,6 @@
 from django.db import models
-
 from Customer.models import Customer
+import uuid
 
 class catagory(models.Model):
     catagory_name=models.CharField(max_length=50)
@@ -49,7 +49,6 @@ class cart(models.Model):
 
     def get_total(self):
         subtotal=self.get_cart_subtotal()
-        
         total=subtotal + self.delivery_price
         return (total)
     
@@ -76,4 +75,22 @@ class cartItems(models.Model):
     def __str__(self):
         return self.productF.product_name
 
-# Create your models here.
+class orderModel(models.Model):
+    
+    customer_name=models.CharField(max_length=50)
+    customer_email=models.EmailField(max_length=50)
+    address=models.TextField(max_length=100)
+    total_bill=models.IntegerField()
+    phone=models.CharField(max_length=50)
+    date=models.DateField(auto_now_add=True)
+    email_token=models.UUIDField(default=uuid.uuid4, editable=False)
+    customer_id=models.ForeignKey(Customer,on_delete=models.CASCADE)
+    cart=models.ForeignKey(cart,on_delete=models.CASCADE)
+    payment_method=models.CharField(max_length=50,default='Cash On Delivery')
+    details=models.TextField(max_length=500,default='')
+
+    def __str__(self):
+        return self.customer_name
+    
+    
+    

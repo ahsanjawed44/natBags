@@ -44,7 +44,10 @@ urlpatterns = [
     path('PlaceReview', views.PlaceReview, name='PlaceReview'),
     # end product review urls
 
-    path('verify/<token>',views.verify,name='verify'), 
+    path('order/',views.order,name='order'),
+
+    path('verifyOrder/<token>',views.verifyOrder,name='verifyOrder'), 
+    path('verifyCustomer/<token>',views.verifyCustomer,name='verifyCustomer'), 
 
     path('error',views.error, name='notFound'),
 
