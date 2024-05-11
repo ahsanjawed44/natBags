@@ -3,7 +3,7 @@ from Shop.models import *
 
 # Register your models here.
 class shopAdmin(admin.ModelAdmin):
-    list_display=['product_name','product_price','product_quantity','product_catagory']
+    list_display=['product_name','product_price','product_quantity','product_catagory','product_rating']
 
 admin.site.register(product,shopAdmin)
 

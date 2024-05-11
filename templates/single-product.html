@@ -4,98 +4,126 @@
 
 <style>
 	.rate {
-    float: left;
-    height: 46px;
-    /* padding: 0 10px; */
-}
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-}
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:25px;
-    color:#ccc;
-}
-.rate:not(:checked) > label:before {
-    content: '★ ';
-}
-.rate > input:checked ~ label {
-    color: #ffc700;    
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #c59b08;
-}
+		float: left;
+		height: 46px;
+		/* padding: 0 10px; */
+	}
+
+	.rate:not(:checked)>input {
+		position: absolute;
+		top: -9999px;
+	}
+
+	.rate:not(:checked)>label {
+		float: right;
+		width: 1em;
+		overflow: hidden;
+		white-space: nowrap;
+		cursor: pointer;
+		font-size: 25px;
+		color: #ccc;
+	}
+
+	.rate:not(:checked)>label:before {
+		content: '★ ';
+	}
+
+	.rate>input:checked~label {
+		color: #ffc700;
+	}
+
+	.rate:not(:checked)>label:hover,
+	.rate:not(:checked)>label:hover~label {
+		color: #deb217;
+	}
+
+	.rate>input:checked+label:hover,
+	.rate>input:checked+label:hover~label,
+	.rate>input:checked~label:hover,
+	.rate>input:checked~label:hover~label,
+	.rate>label:hover~input:checked~label {
+		color: #c59b08;
+	}
 </style>
 
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p>See more Details</p>
-						<h1>Single Product</h1>
-					</div>
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<p>See more Details</p>
+					<h1>Single Product</h1>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end breadcrumb section -->
+</div>
+<!-- end breadcrumb section -->
 
-	<!-- single product -->
-	<div class="single-product mt-150 ">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5">
-					<div class="single-product-img">
-						<img src="../Media/{{productDetail.product_image}}" alt="">
-					</div>
+<!-- single product -->
+<div class="single-product mt-150 ">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="single-product-img">
+					<img src="../Media/{{productDetail.product_image}}" alt="">
 				</div>
-				<div class="col-md-7">
-					<div class="single-product-content">
-						<h3>{{productDetail.product_name}}</h3>
-						<p class="single-product-pricing">Rs {{productDetail.product_price}}.00 <span> In Stock ({{productDetail.product_quantity}})</span></p>
-						<p>{{productDetail.product_details}}</p>
-						<div class="single-product-form">
-						
-								<!-- {% csrf_token %} -->
-								{% if request.session.customer_id %}
-								<a href="{% url 'add-to-cart' productDetail.id %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-								
-								{% else %}
-								<!-- <input type="number" placeholder="0" min="0" name="qty"> -->
-								<a href="{% url 'login' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-								{% endif %}
-							
-							<p><strong>Categories: </strong>{{productDetail.product_catagory}}</p>
-						</div>
-						<h4>Share:</h4>
-						<ul class="product-share">
-							<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-							<li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-						</ul>
+			</div>
+			<div class="col-md-7">
+				<div class="single-product-content">
+					<h3>{{productDetail.product_name}}</h3>
+					<p class="single-product-pricing">Rs {{productDetail.product_price}}.00 </p>
+					<p>Rating:
+						{% if average_rating %}
+						{% for star_number in "12345" %}
+						{% if average_rating >= forloop.counter %}
+						<i class="fa fa-star text-warning"></i>
+						{% else %}
+						<i class="fa fa-star"></i>
+						{% endif %}
+						{% endfor %}
+						{% else %}
+						<!-- Handle case where no rating is available -->
+						No rating available
+						{% endif %}
+					</p>
+
+
+
+					<p><span> In Stock ({{productDetail.product_quantity}})</span></p>
+					<p>{{productDetail.product_details}}</p>
+
+
+					<div class="single-product-form">
+
+						<!-- {% csrf_token %} -->
+						{% if request.session.customer_id %}
+						<a href="{% url 'add-to-cart' productDetail.id %}" class="cart-btn"><i
+								class="fas fa-shopping-cart"></i> Add to Cart</a>
+
+						{% else %}
+						<!-- <input type="number" placeholder="0" min="0" name="qty"> -->
+						<a href="{% url 'login' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to
+							Cart</a>
+						{% endif %}
+
+						<p><strong>Categories: </strong>{{productDetail.product_catagory}}</p>
 					</div>
+					<h4>Share:</h4>
+					<ul class="product-share">
+						<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+						<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+						<li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+						<li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
-	<div class="feedback mb-150">
+<div class="feedback mb-150">
 	<div class="container ">
 		<div class="row">
 			<div class="col-12">
@@ -105,62 +133,38 @@
 						<div class="single-comment-body">
 
 							{% for rp in reviewData %}
-							
-								<div class="comment-text-body">
-									
-									<div class="row">
+
+							<div class="comment-text-body">
+
+								<div class="row">
 
 
-										<div class="d-flex mb-3">
+									<div class="d-flex mb-3">
+										<!-- displaying rating star -->
+										{% for star_number in "12345" %}
+											{% if rp.rating >= star_number %}
+												<i class="fa fa-star text-warning"></i>
+											{% else %}
+												<i class="fa fa-star"></i>
+											{% endif %}
+										{% endfor %}
 
-											{% if rp.rating == '1'%}
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											{% elif rp.rating == '2' %}
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											{% elif rp.rating == '3' %}
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											{% elif rp.rating == '4' %}
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star"></i>
-											{% elif rp.rating == '5' %}
-
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-												<i class="fa fa-star text-warning"></i>
-
-											{% endif %}											
-										</div>
-
+										
 									</div>
 
-									<h4>{{ rp.userid.customer_name }} <span class="comment-date">{{rp.date}}</span></h4>
-									<p>{{rp.review}} </p>
 								</div>
+
+								<h4>{{ rp.userid.customer_name }} <span class="comment-date">{{rp.date}}</span></h4>
+								<p>{{rp.review}} </p>
+							</div>
 							{% endfor %}
 						</div>
-						
+
 					</div>
 				</div>
-		
+
 				<div class="comment-template">
-					<h4>Leave a comment</h4>
+					<h4>Drop your Feedback</h4>
 					<p>If you have a comment dont feel hesitate to send us your opinion.</p>
 					<form method="post" action="{% url 'PlaceReview' %}">
 
@@ -168,23 +172,24 @@
 
 						<div class="col-lg-6 col-sm-12 d-flex align-items-center">
 							<p class="mb-0 me-3">Please rate:</p>
-								<div class="rate pt-1">
-									<input type="radio" id="star5" name="rate" value="5">
-									<label for="star5" title="5 stars">5 stars</label>
-									<input type="radio" id="star4" name="rate" value="4">
-									<label for="star4" title="4 stars">4 stars</label>
-									<input type="radio" id="star3" name="rate" value="3">
-									<label for="star3" title="3 stars">3 stars</label>
-									<input type="radio" id="star2" name="rate" value="2">
-									<label for="star2" title="2 stars">2 stars</label>
-									<input type="radio" id="star1" name="rate" value="1">
-									<label for="star1" title="1 star">1 star</label>
-								</div>
+							<div class="rate mr-1">
+								<input type="radio" id="star5" name="rate" value="5">
+								<label for="star5" title="5 stars">5 stars</label>
+								<input type="radio" id="star4" name="rate" value="4">
+								<label for="star4" title="4 stars">4 stars</label>
+								<input type="radio" id="star3" name="rate" value="3">
+								<label for="star3" title="3 stars">3 stars</label>
+								<input type="radio" id="star2" name="rate" value="2">
+								<label for="star2" title="2 stars">2 stars</label>
+								<input type="radio" id="star1" name="rate" value="1">
+								<label for="star1" title="1 star">1 star</label>
+							</div>
 						</div>
 
 						<input type="hidden" name="productid" value="{{productDetail.id}}">
 
-						<p><textarea name="comment" id="comment" cols="30" rows="6" placeholder="Your Feedback"></textarea></p>
+						<p><textarea name="comment" id="comment" cols="30" rows="6"
+								placeholder="Your Feedback"></textarea></p>
 						<p><input type="submit" value="Submit"></p>
 					</form>
 				</div>
@@ -192,63 +197,65 @@
 		</div>
 	</div>
 </div>
-	<!-- more products -->
-	<div class="more-products mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Related</span> Products</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				{% for p in products %}
-				<div class="col-lg-4 col-md-6 text-center {{p.product_catagory}}">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="{% url 'singleProduct' %}"><img src="../Media/{{ p.product_image }}" alt=""></a>
-						</div>
-						<h3>{{p.product_name}}</h3>
-						<p class="product-price">RS {{p.product_price}}.00 
-							<span>({{p.product_quantity}})</span>
-						</p>
-						<a href="{% url 'add-to-cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				{% endfor %}
-
-			</div>
-		</div>
-	</div>
-	<!-- end more products -->
-
-	<!-- logo carousel -->
-	<div class="logo-carousel-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="logo-carousel-inner">
-						<div class="single-logo-item">
-							<img src="../static/img/company-logos/1.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="../static/img/company-logos/2.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="../static/img/company-logos/3.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="../static/img/company-logos/4.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="../static/img/company-logos/5.png" alt="">
-						</div>
-					</div>
+<!-- more products -->
+<div class="more-products mb-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="section-title">
+					<h3><span class="orange-text">Related</span> Products</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet
+						beatae optio.</p>
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			{% for p in products %}
+			<div class="col-lg-4 col-md-6 text-center {{p.product_catagory}}">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a href="{% url 'singleProduct' %}"><img src="../Media/{{ p.product_image }}" alt=""></a>
+					</div>
+					<h3>{{p.product_name}}</h3>
+					<p class="product-price">RS {{p.product_price}}.00
+						<span>({{p.product_quantity}})</span>
+					</p>
+					<a href="{% url 'add-to-cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to
+						Cart</a>
+				</div>
+			</div>
+			{% endfor %}
+
+		</div>
 	</div>
-	<!-- end logo carousel -->
+</div>
+<!-- end more products -->
+
+<!-- logo carousel -->
+<div class="logo-carousel-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="logo-carousel-inner">
+					<div class="single-logo-item">
+						<img src="../static/img/company-logos/1.png" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img src="../static/img/company-logos/2.png" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img src="../static/img/company-logos/3.png" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img src="../static/img/company-logos/4.png" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img src="../static/img/company-logos/5.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end logo carousel -->
 {% endblock %}

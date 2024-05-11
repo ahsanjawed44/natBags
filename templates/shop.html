@@ -45,8 +45,20 @@
 							<a href="/productDetail/{{p.id}}"><img src="../Media/{{ p.product_image }}" alt=""></a>
 						</div>
 						<h3>{{p.product_name}}</h3>
-						<p class="product-price">Rs {{p.product_price}}.00 <span> In Stock ({{p.product_quantity}})</span>
-						</p>
+						<p class="product-price">Rs {{p.product_price}}.00 </p>
+						<p>{% if prod.avg_rating %}
+							{% for star_number in "12345" %}
+								{% if prod.avg_rating >= forloop.counter %}
+									<i class="fa fa-star text-warning"></i>
+								{% else %}
+									<i class="fa fa-star"></i>
+								{% endif %}
+							{% endfor %}
+						{% else %}
+							<!-- Handle case where no rating is available -->
+							No rating available
+						{% endif %}</p>
+						<p><span> In Stock ({{p.product_quantity}})</span></p>
 						<a href="/productDetail/{{p.id}}" class="cart-btn"><i class="fas fa-shopping-cart"></i> View Detail </a>
 					</div>
 				</div>

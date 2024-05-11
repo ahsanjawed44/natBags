@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
+from django.db.models import Avg
 import uuid
 
 
@@ -89,12 +90,40 @@ def shop(request):
         'lastpage': totalpage,
         'totalpagelist': [n+1 for n in range(totalpage)],
         'cartItemCount': cartItemCount,
+        
     }
     return render(request, 'shop.html', data)
 
 
 
-def singleProduct(request,productid):
+# def singleProduct(request,productid):
+#     customer_id = request.session.get('customer_id')
+#     cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
+    
+#     if cartObj:    
+#         cartID = cartObj.id
+#         cartItemCount = cartItems.objects.filter(cartF=cartID).count()
+#     else:        
+#         cartItemCount = 0
+
+#     productDetail=product.objects.get(id=productid)    
+#     reviewData = review_product.objects.filter(productid=productid)
+#     review_count = review_product.objects.filter(productid=productid).count()
+
+#     product_ratings = review_product.objects.filter(productid=productid).aggregate(rating=Avg('rating'))
+
+#     # average_rating = product_ratings.get('avg_rating', 0)
+    
+#     data={
+#      'productDetail':productDetail,
+#      'reviewData': reviewData,
+#      'review_count': review_count,
+#      'cartItemCount': cartItemCount,
+#      'product_ratings': product_ratings
+#     }
+#     return render(request,'single-product.html',data)
+
+def singleProduct(request, productid):
     customer_id = request.session.get('customer_id')
     cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
     
@@ -104,18 +133,30 @@ def singleProduct(request,productid):
     else:        
         cartItemCount = 0
 
-    productDetail=product.objects.get(id=productid)    
+    productDetail = product.objects.get(id=productid)    
     reviewData = review_product.objects.filter(productid=productid)
     review_count = review_product.objects.filter(productid=productid).count()
-    
-    data={
-     'productDetail':productDetail,
-     'reviewData': reviewData,
-     'review_count': review_count,
-     'cartItemCount': cartItemCount
-    }
-    return render(request,'single-product.html',data)
 
+    # Aggregate average rating for the product
+    product_ratings = review_product.objects.filter(productid=productid).aggregate(avg_rating=Avg('rating'))
+    average_rating = product_ratings.get('avg_rating', 0)  # Get the average rating value or default to 0 if no rating
+    if average_rating is None:
+        average_rating = 0
+    else:
+     average_rating = round(average_rating)
+    
+    # Update the product instance with the calculated average rating
+    productDetail.product_rating = average_rating
+    productDetail.save()
+
+    data = {
+        'productDetail': productDetail,
+        'reviewData': reviewData,
+        'review_count': review_count,
+        'cartItemCount': cartItemCount,
+        'average_rating': average_rating,  # Pass the average rating to the template
+    }
+    return render(request, 'single-product.html', data)
 
 
 
