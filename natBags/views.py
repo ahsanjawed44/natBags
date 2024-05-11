@@ -37,6 +37,9 @@ def index(request):
     
     return render(request,"index.html",data)
 
+
+
+# Static pages Start
 def about(request):
     customer_id = request.session.get('customer_id')
     cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
@@ -69,6 +72,25 @@ def contact(request):
     }
     return render(request,'contact.html', data)
 
+def services(request):
+    customer_id = request.session.get('customer_id')
+    cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
+    
+    if cartObj:    
+        cartID = cartObj.id
+        cartItemCount = cartItems.objects.filter(cartF=cartID).count()
+    else:        
+        cartItemCount = 0
+
+    data={
+        'cartItemCount':cartItemCount   
+    }
+
+    return render(request,'services.html', data)
+# Static pages End
+
+
+# Shop Session Start
 def shop(request):
     customer_id = request.session.get('customer_id')
     cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first()
@@ -93,35 +115,6 @@ def shop(request):
         
     }
     return render(request, 'shop.html', data)
-
-
-
-# def singleProduct(request,productid):
-#     customer_id = request.session.get('customer_id')
-#     cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
-    
-#     if cartObj:    
-#         cartID = cartObj.id
-#         cartItemCount = cartItems.objects.filter(cartF=cartID).count()
-#     else:        
-#         cartItemCount = 0
-
-#     productDetail=product.objects.get(id=productid)    
-#     reviewData = review_product.objects.filter(productid=productid)
-#     review_count = review_product.objects.filter(productid=productid).count()
-
-#     product_ratings = review_product.objects.filter(productid=productid).aggregate(rating=Avg('rating'))
-
-#     # average_rating = product_ratings.get('avg_rating', 0)
-    
-#     data={
-#      'productDetail':productDetail,
-#      'reviewData': reviewData,
-#      'review_count': review_count,
-#      'cartItemCount': cartItemCount,
-#      'product_ratings': product_ratings
-#     }
-#     return render(request,'single-product.html',data)
 
 def singleProduct(request, productid):
     customer_id = request.session.get('customer_id')
@@ -157,10 +150,12 @@ def singleProduct(request, productid):
         'average_rating': average_rating,  # Pass the average rating to the template
     }
     return render(request, 'single-product.html', data)
+# Shop Session End
 
 
+# News Session Start
+def newsPage(request):
 
-def services(request):
     customer_id = request.session.get('customer_id')
     cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
     
@@ -170,17 +165,41 @@ def services(request):
     else:        
         cartItemCount = 0
 
+    newsData=news.objects.all()
+    paginator=Paginator(newsData,9)
+    page_number=request.GET.get('page')
+    shopDatafinal=paginator.get_page(page_number)
+    totalpage=shopDatafinal.paginator.num_pages
+
     data={
-        'cartItemCount':cartItemCount   
+        'news':shopDatafinal,
+        'lastpage':totalpage,
+        'totalpagelist':[n+1 for n in range(totalpage)],
+        'cartItemCount': cartItemCount
     }
+    
+    return render(request,'news.html',data)
 
-    return render(request,'services.html', data)
+def singleNews(request,newsid):
+    customer_id = request.session.get('customer_id')
+    cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
+    
+    if cartObj:    
+        cartID = cartObj.id
+        cartItemCount = cartItems.objects.filter(cartF=cartID).count()
+    else:        
+        cartItemCount = 0
+
+    newsDetail=news.objects.get(id=newsid)
+    data={
+     'newsDetail':newsDetail,
+     'cartItemCount': cartItemCount
+    }
+    return render(request,'single-news.html',data)
+# News Session End
 
 
-
-
-
-
+# Order Session Start
 def checkout(request):
 
     customer_id = request.session.get('customer_id')
@@ -235,123 +254,6 @@ def checkout(request):
     # else:
     #     # Handle case where user is not logged in
     #     return redirect('/login')
-    
-
-
-
-
-def newsPage(request):
-
-    customer_id = request.session.get('customer_id')
-    cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
-    
-    if cartObj:    
-        cartID = cartObj.id
-        cartItemCount = cartItems.objects.filter(cartF=cartID).count()
-    else:        
-        cartItemCount = 0
-
-    newsData=news.objects.all()
-    paginator=Paginator(newsData,9)
-    page_number=request.GET.get('page')
-    shopDatafinal=paginator.get_page(page_number)
-    totalpage=shopDatafinal.paginator.num_pages
-
-    data={
-        'news':shopDatafinal,
-        'lastpage':totalpage,
-        'totalpagelist':[n+1 for n in range(totalpage)],
-        'cartItemCount': cartItemCount
-    }
-    
-    return render(request,'news.html',data)
-
-
-
-def singleNews(request,newsid):
-    customer_id = request.session.get('customer_id')
-    cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
-    
-    if cartObj:    
-        cartID = cartObj.id
-        cartItemCount = cartItems.objects.filter(cartF=cartID).count()
-    else:        
-        cartItemCount = 0
-
-    newsDetail=news.objects.get(id=newsid)
-    data={
-     'newsDetail':newsDetail,
-     'cartItemCount': cartItemCount
-    }
-    return render(request,'single-news.html',data)
-
-
-
-
-def cartPage(request):
-    customer_id = request.session.get('customer_id')
-
-    if customer_id:
-        try:
-            cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first()
-            if cartObj:
-                cartID = cartObj.id
-                cartItemCount = cartItems.objects.filter(cartF=cartID).count()
-                cartItemData = cartItems.objects.filter(cartF=cartID)
-
-                data = {
-                    'cartItem': cartItemData,
-                    'cart': cartObj,
-                    'cartItemCount': cartItemCount
-                }
-
-                return render(request, 'cart.html', data)
-            else:
-                # If no unpaid cart exists for the customer, render an empty cart
-                return render(request, 'cart.html', {'cartItem': [], 'cart': None, 'cartItemCount': 0})
-        except cart.DoesNotExist:
-            # If cart does not exist for the customer, render an empty cart
-            return render(request, 'cart.html', {'cartItem': [], 'cart': None, 'cartItemCount': 0})
-    else:
-        # If customer_id is not in session, render an empty cart
-        return render(request, 'cart.html', {'cartItem': [], 'cart': None, 'cartItemCount': 0})
-
-
-
-def add_to_cart(request,pid):
-    if request.session.get('customer_id'):
-        productC = product.objects.get(id=pid)
-        customer_id = request.session['customer_id']
-
-        # Fetch the Customer instance using the customer_id
-        customer = Customer.objects.get(id=customer_id)
-        cartInfo, created = cart.objects.get_or_create(Customer=customer, is_paid=False)
-
-        # Check if the product already exists in the cart items
-        existing_cart_item = cartItems.objects.filter(cartF=cartInfo, productF=productC).first()
-
-        if existing_cart_item:
-            # If the product already exists in the cart, increase its quantity
-            existing_cart_item.quantity += 1
-            existing_cart_item.save()
-        else:
-            # If the product is not in the cart, create a new cart item
-            cartItem = cartItems.objects.create(cartF=cartInfo, productF=productC)
-            cartItem.save()
-
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-    else:
-        return redirect("/userLogin/")
-
-
-def remove_cart(request , cid):
-    try:
-        cartItem=cartItems.objects.get(id=cid)
-        cartItem.delete()
-    except Exception as e:
-        print(e)
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def order(request):
     if request.method == "POST":
@@ -390,53 +292,59 @@ def order(request):
     else:
         return render(request, '404.html')
 
-# def order(request):
-#     if request.method == "POST":
-#         address = request.POST["address"]
-#         phone = request.POST["phone"]
-#         payment_method = request.POST["payment"]
+
+
+    try:  
+        orderC = orderModel.objects.get(email_token=token)
+        cartF=orderC.cart
+        cartF.is_paid=True
+        cartF.save()
+        orderC.save()
         
-#         if 'customer_id' in request.session:
-#             customer_name = request.session.get('customer_name')
-#             customer_email = request.session.get('customer_email')
+        
+        messages.success(request, 'Your order has been verified successfully!')
 
-#             customer = Customer.objects.get(id=request.session.get('customer_id'))
-            
-#             cart_instance = cart.objects.get(Customer=customer, is_paid=False)
-
-#             total_bill = cart_instance.get_total()  
-            
-            
-#             url = 'verifyOrder'
-#             email_token = str(uuid.uuid4())
-#             addOrder = order.objects.filter(customer_name=customer_name, customer_email=customer_email, address=address, phone=phone, total_bill=total_bill, email_token=email_token)
-#             send_email_token(customer_email, email_token, url)
-#             return HttpResponseRedirect('/verifyOrder/')
-#         else:
-#             return render(request, 'login.html')
-#     else:
-#         return render(request, '404.html')
+        # Redirect to the cart page
+        return redirect('cart') 
+        
+    
+    except Customer.DoesNotExist:
+        return HttpResponse('Invalid token')
+# Order Session End
 
 
 
-    # Check if the user is logged in
-    # if request.method == "POST":
-    #     address = request.POST["address"]
-    #     phone = request.POST["phone"]
-    #     payment_method=request.POST["payment"]
-    #     if 'customer_id':
-    #         customer_name = request.session.get('customer_name')
-    #         customer_email = request.session.get('customer_email')
+# Email Verification Start
+def send_email_token(email, token, url):
+    try:
+        
+        subject = "Email Verification"
+        message = f"Please click on the following link for validation : http://127.0.0.1:8000/{url}/{token}"
+        email_from = settings.EMAIL_HOST_USER
+        recipients_list = [email]
+        send_mail(subject, message, email_from, recipients_list)
+        return True
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False
 
-    #         total_bill=cart.get_total
-    #         url='verifyOrder'
-    #         email_token = str(uuid.uuid4())
-    #         addOrder = order.objects.create(customer_name=customer_name, customer_email=customer_email, address=address,phone=phone,total_bill=total_bill ,email_token=email_token)
-    #         send_email_token(customer_email, email_token,url)
-    #     else:
-    #         return render(request,'login.html')
-    # else:
-    #     return render(request,'404.html')
+def verifyCustomer(request, token):
+    try:
+        
+        customer = Customer.objects.get(email_token=token)
+        customer.is_verified = True
+        customer.save()
+
+
+        
+        request.session['customer_id'] = customer.id
+        request.session['customer_name'] = customer.customer_name
+        request.session['customer_email'] =customer.customer_email
+        return redirect('/')
+        
+        return render(request, "login.html")
+    except Customer.DoesNotExist:
+        return HttpResponse('Invalid token')
 
 def verifyOrder(request, token):
     try:  
@@ -455,26 +363,9 @@ def verifyOrder(request, token):
     
     except Customer.DoesNotExist:
         return HttpResponse('Invalid token')
-      
-# Not found errror
-def error(request):
-    return render(request,'404.html')
+# Email Verification End     
 
-# Send Email
-
-def send_email_token(email, token, url):
-    try:
-        
-        subject = "Email Verification"
-        message = f"Please click on the following link for validation : http://127.0.0.1:8000/{url}/{token}"
-        email_from = settings.EMAIL_HOST_USER
-        recipients_list = [email]
-        send_mail(subject, message, email_from, recipients_list)
-        return True
-    except Exception as e:
-        print(f"Error sending email: {e}")
-        return False
-
+# User authantication Start
 def register(request):
     if request.method == "POST":
         fname = request.POST["firstName"]
@@ -482,85 +373,17 @@ def register(request):
         pwd = request.POST["password"]
 
         if Customer.objects.filter(customer_email=eml).exists():
-            messages.error(request, 'Email Already Exists')
+            messages.error(request, 'Email Already Exists, try again with different email')
             return redirect('/userRegister')
         else:
             url='verifyCustomer'
             email_token = str(uuid.uuid4())
             new_user = Customer.objects.create(customer_name=fname, customer_email=eml, customer_password=pwd, email_token=email_token)
             send_email_token(eml, email_token,url)
-            return render(request, "404.html")
+            messages.error(request, 'Verification Link is been sent to your Email.')
+            return render(request, "register.html")
         
     return render(request, "register.html")
-
-
-def verifyCustomer(request, token):
-    try:
-        
-        customer = Customer.objects.get(email_token=token)
-        customer.is_verified = True
-        customer.save()
-        
-        # return render(request, "login.html")
-    except Customer.DoesNotExist:
-        return HttpResponse('Invalid token')
-
-
-
-# def send_email_token(email,token):
-#     try:
-#         subject="Test email"
-#         massage="Verify your acccount by clicking on this link. http://127.0.0.1:8000/verify/{token}"
-#         email_from= settings.EMAIL_HOST_USER
-#         recipents_list=[email, ]
-#         send_mail(subject,massage,email_from,recipents_list)
-
-#     except Exception as e:
-#         return False
-    
-#     return True 
-
-
-# def verify(request,token):
-#     try:
-#         pObj=profile.objects.get(email_token=token)
-#         pObj.is_verified=True
-#         pObj.save()
-#         return render(request,"login.html")
-#     except Exception as e:
-#         return HttpResponse('Envalid token',)
-
-# # Authantication
-# def register(request):
-#     if request.method=="POST":
-#         fname=request.POST["firstName"]
-#         eml=request.POST["email"]
-#         pwd=request.POST["password"]
-
-#         if Customer.objects.filter(customer_email=eml).exists() :
-#             messages.error(request , 'Email Already Exist')
-#             return redirect('/userRegister')
-#         else:
-#             new_user=Customer(customer_name=fname,customer_email=eml,customer_password=pwd)
-#             new_user.save()
-
-#             p_obj= profile.objects.create(
-#                 customer=new_user.customer_name,
-#                 email_token=str(uuid.uuid4())
-#             )
-#             send_email_token(eml,p_obj.email_token)
-            
-#             # customer = Customer.objects.get(customer_email=eml , customer_password=pwd)
-#             # if customer is not None:
-
-#             #     request.session['customer_id'] = customer.id
-#             #     request.session['customer_name'] = customer.customer_name
-                
-#             #     return redirect('/')
-
-#     return render(request,"register.html")
-
-
 
 def login(request):
     if request.method == "POST":
@@ -593,6 +416,74 @@ def logout(request):
         Session.objects.filter(session_key=session_key).delete()
     # Redirect to the index page or any other page
     return redirect('index')
+# User authantication End
+
+
+
+# Cart page and its operation Start
+def cartPage(request):
+
+    customer_id = request.session.get('customer_id')
+
+    if customer_id:
+        try:
+            cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first()
+            if cartObj:
+                cartID = cartObj.id
+                cartItemCount = cartItems.objects.filter(cartF=cartID).count()
+                cartItemData = cartItems.objects.filter(cartF=cartID)
+
+                data = {
+                    'cartItem': cartItemData,
+                    'cart': cartObj,
+                    'cartItemCount': cartItemCount
+                }
+
+                return render(request, 'cart.html', data)
+            else:
+                # If no unpaid cart exists for the customer, render an empty cart
+                return render(request, 'cart.html', {'cartItem': [], 'cart': None, 'cartItemCount': 0})
+        except cart.DoesNotExist:
+            # If cart does not exist for the customer, render an empty cart
+            return render(request, 'cart.html', {'cartItem': [], 'cart': None, 'cartItemCount': 0})
+    else:
+        # If customer_id is not in session, render an empty cart
+        return render(request, '404.html', {'cartItem': [], 'cart': None, 'cartItemCount': 0})
+
+def add_to_cart(request,pid):
+    if request.session.get('customer_id'):
+        productC = product.objects.get(id=pid)
+        customer_id = request.session['customer_id']
+
+        # Fetch the Customer instance using the customer_id
+        customer = Customer.objects.get(id=customer_id)
+        cartInfo, created = cart.objects.get_or_create(Customer=customer, is_paid=False)
+
+        # Check if the product already exists in the cart items
+        existing_cart_item = cartItems.objects.filter(cartF=cartInfo, productF=productC).first()
+
+        if existing_cart_item:
+            # If the product already exists in the cart, increase its quantity
+            existing_cart_item.quantity += 1
+            existing_cart_item.save()
+        else:
+            # If the product is not in the cart, create a new cart item
+            cartItem = cartItems.objects.create(cartF=cartInfo, productF=productC)
+            cartItem.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        return redirect("/userLogin/")
+
+def remove_cart(request , cid):
+    try:
+        cartItem=cartItems.objects.get(id=cid)
+        cartItem.delete()
+    except Exception as e:
+        print(e)
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 def plus(request, cid):
     cartItem=cartItems.objects.get(id=cid)
     cartItem.quantity += 1  # Increment the quantity
@@ -604,8 +495,10 @@ def minus(request,cid):
      cartItem.quantity -= 1  # Increment the quantity
      cartItem.save() 
      return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+# Cart page and its operation Start
 
 
+# Customer Feedback Start
 def PlaceReview(request):
     if request.method == "POST":
         rate = request.POST["rate"]
@@ -629,3 +522,8 @@ def PlaceReview(request):
             return HttpResponse("Customer ID not found in session.")  # Handle this case as per your requirement
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+# Customer Feedback End
+
+# Not found errror
+def error(request):
+    return render(request,'404.html')

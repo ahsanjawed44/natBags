@@ -76,13 +76,13 @@
 					<p class="single-product-pricing">Rs {{productDetail.product_price}}.00 </p>
 					<p>Rating:
 						{% if average_rating %}
-						{% for star_number in "12345" %}
-						{% if average_rating >= forloop.counter %}
-						<i class="fa fa-star text-warning"></i>
-						{% else %}
-						<i class="fa fa-star"></i>
-						{% endif %}
-						{% endfor %}
+							{% for star_number in "12345" %}
+								{% if average_rating >= forloop.counter %}
+									<i class="fa fa-star text-warning"></i>
+								{% else %}
+									<i class="fa fa-star"></i>
+								{% endif %}
+							{% endfor %}
 						{% else %}
 						<!-- Handle case where no rating is available -->
 						No rating available

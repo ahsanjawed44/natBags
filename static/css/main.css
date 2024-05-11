@@ -2768,6 +2768,9 @@ table.order-details tbody td {
   border-radius: 5px;
 }
 
+.single-product-item p {
+  margin-bottom: 3px;
+}
 /* -----------------------------------------------------------------------------
 
 # 404 Page Styles
