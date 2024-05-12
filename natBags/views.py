@@ -156,6 +156,41 @@ def singleProduct(request, productid):
         'average_rating': average_rating,  # Pass the average rating to the template
     }
     return render(request, 'single-product.html', data)
+
+def search(request):
+    customer_id = request.session.get('customer_id')
+    cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first()
+
+    if cartObj:
+        cartID = cartObj.id
+        cartItemCount = cartItems.objects.filter(cartF=cartID).count()
+    else:
+        cartItemCount = 0
+
+    usersearch = request.GET.get('search')
+    # Pagination
+    shopData = product.objects.filter(product_name__icontains=usersearch , product_catagory__catagory_name__icontains=usersearch) 
+    
+    paginator = Paginator(shopData, 9)
+    page_number = request.GET.get('page')
+    shopDatafinal = paginator.get_page(page_number)
+    totalpage = shopDatafinal.paginator.num_pages
+
+    if not shopData:  # If shopData is empty
+        data = {
+            'no_items_found': True,
+            'cartItemCount': cartItemCount,
+        }
+    else:
+        data = {
+            'products': shopDatafinal,
+            'lastpage': totalpage,
+            'totalpagelist': [n+1 for n in range(totalpage)],
+            'cartItemCount': cartItemCount,
+        }
+
+    return render(request, 'search.html', data)
+
 # Shop Session End
 
 
@@ -278,7 +313,7 @@ def order(request):
                         product = cartItem.productF
                         product.product_quantity = product.product_quantity - cartItem.quantity
                         product.save()
-
+                messages.success(request, 'Email is been send for verification. Confirm your order from your Gmail account.')
                 return HttpResponseRedirect('/checkout/')
             else:
                 return HttpResponse('Customer email is missing.')
@@ -310,17 +345,6 @@ def order(request):
 
 
 # Email Verification Start
-# def send_email_token(email, token, url):
-#     try:
-#         subject = "Email Verification"
-#         message = f"Please click on the following link for validation : http://127.0.0.1:8000/{url}/{token}"
-#         email_from = settings.EMAIL_HOST_USER
-#         recipients_list = [email]
-#         send_mail(subject, message, email_from, recipients_list)
-#         return True
-#     except Exception as e:
-#         print(f"Error sending email: {e}")
-#         return False
 
 def send_email_token(email, token, url):
     try:
@@ -332,8 +356,7 @@ def send_email_token(email, token, url):
         return True
     except Exception as e:
         logging.error(f"Error sending email: {e}")
-        raise  # Re-raise the exception after logging it
-
+        raise  
 def verifyCustomer(request, token):
     try:
         
@@ -364,7 +387,7 @@ def verifyOrder(request, token):
         messages.success(request, 'Your order has been verified successfully!')
 
         # Redirect to the cart page
-        return redirect('cart') 
+        return redirect('') 
         
     
     except Customer.DoesNotExist:

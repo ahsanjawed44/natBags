@@ -12,3 +12,233 @@ INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\nat
 INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\settings.py changed, reloading.
 INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\settings.py changed, reloading.
 INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\settings.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\urls.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\urls.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\urls.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\urls.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\urls.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\urls.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\urls.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+WARNING:django.request:Not Found: /search
+WARNING:django.request:Not Found: /favicon.ico
+WARNING:django.request:Not Found: /search/
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+WARNING:django.request:Not Found: /search/
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\urls.py changed, reloading.
+ERROR:django.request:Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py", line 169, in search
+    usersearch=request.Get.get('search')
+               ^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute 'Get'
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+ERROR:django.request:Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py", line 172, in search
+    shopData = product.objects.filter(product_name__icontains=usersearch , product_catagory__icontains=usersearch)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1534, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1565, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1480, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1301, in build_lookup
+    lhs = self.try_transform(lhs, lookup_name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1345, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'icontains' for ForeignKey or join on the field not permitted.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+ERROR:django.request:Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\fields\__init__.py", line 2053, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'laptop'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py", line 172, in search
+    shopData = product.objects.filter(product_name__icontains=usersearch , product_catagory=usersearch)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1534, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1565, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1480, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1307, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\fields\related_lookups.py", line 166, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got 'laptop'.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+ERROR:django.request:Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py", line 172, in search
+    shopData = product.objects.filter(product_name__icontains=usersearch , product_catagory__name__icontains=usersearch)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1534, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1565, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1480, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1294, in build_lookup
+    lhs = self.try_transform(lhs, name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1345, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'name' for ForeignKey or join on the field not permitted.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+WARNING:django.request:Not Found: /productDetail/
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+WARNING:django.request:Not Found: /favicon.ico
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\natBags\natBags\views.py changed, reloading.

@@ -24,19 +24,21 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
-    path('shop/', views.shop, name='shop'),
-    path('news/', views.newsPage, name='news'),
     path('services/', views.services, name='services'),
+    
+    path('shop/', views.shop, name='shop'),
+    path('productDetail/<productid>',views.singleProduct,name='singleProduct'),
+    path('search/', views.search, name='search'),
+
+    path('news/', views.newsPage, name='news'),
+    path('newsDetail/<newsid>',views.singleNews, name='singleNews'),
+
     path('cart/', views.cartPage, name='cart'),
     path('add-to-cart/<pid>', views.add_to_cart, name='add-to-cart'),
     path('remove-cart-item/<cid>', views.remove_cart, name='remove-cart-item'),
-    
-    path('checkout/', views.checkout, name='checkout'),
-    path('productDetail/<productid>',views.singleProduct,name='singleProduct'),
-    path('newsDetail/<newsid>',views.singleNews, name='singleNews'),
-
     path('plus/<int:cid>',views.plus, name='plus'),
     path('minus/<cid>',views.minus, name='minus'),
 
@@ -44,15 +46,18 @@ urlpatterns = [
     path('PlaceReview', views.PlaceReview, name='PlaceReview'),
     # end product review urls
 
+    path('checkout/', views.checkout, name='checkout'),
     path('order/',views.order,name='order'),
 
     path('verifyOrder/<token>',views.verifyOrder,name='verifyOrder'), 
     path('verifyCustomer/<token>',views.verifyCustomer,name='verifyCustomer'), 
 
-    path('error',views.error, name='notFound'),
 
     path('userLogin/',views.login, name='login'),
     path('userRegister/',views.register, name='register'),
     path('userLogout/',views.logout, name='logout'),
     
+    path('error',views.error, name='notFound'),
+
+
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

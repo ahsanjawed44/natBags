@@ -31,16 +31,17 @@
 	<link rel="stylesheet" href="../static/css/responsive.css">
 
 </head>
+
 <body>
-	
+
 	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
-	
+	<div class="loader">
+		<div class="loader-inner">
+			<div class="circle"></div>
+		</div>
+	</div>
+	<!--PreLoader Ends-->
+
 	<div class="top-header-area" id="sticker">
 		<div class="container">
 			<div class="row">
@@ -57,24 +58,34 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="{% if request.path == '/' %} current-list-item{% endif %}" ><a href="{% url 'index' %}">Home</a></li>
-								<li class="{% if request.path == '/about/' %} current-list-item{% endif %}" ><a href="{% url 'about' %}">About</a></li>
-								<li class="{% if request.path == '/news/' %} current-list-item{% endif %}" ><a href="{% url 'news' %}">News</a></li>
-								<li class="{% if request.path == '/contact/' %} current-list-item{% endif %}" ><a href="{% url 'contact' %}">Contact</a></li>
-								<li class="{% if request.path == '/shop/' %} current-list-item{% endif %}" ><a href="{% url 'shop' %}">Shop</a></li>
+								<li class="{% if request.path == '/' %} current-list-item{% endif %}"><a
+										href="{% url 'index' %}">Home</a></li>
+								<li class="{% if request.path == '/about/' %} current-list-item{% endif %}"><a
+										href="{% url 'about' %}">About</a></li>
+								<li class="{% if request.path == '/news/' %} current-list-item{% endif %}"><a
+										href="{% url 'news' %}">News</a></li>
+								<li class="{% if request.path == '/contact/' %} current-list-item{% endif %}"><a
+										href="{% url 'contact' %}">Contact</a></li>
+								<li class="{% if request.path == '/shop/' %} current-list-item{% endif %}"><a
+										href="{% url 'shop' %}">Shop</a></li>
 								<li>
 									<div class="header-icons">
 										{% if request.session.customer_id %}
-										<span><a href="{% url 'index' %}" class="customer_info"> Welcome {{ request.session.customer_name }} </a>/<a href="{% url 'logout' %}">LogOut</a>
-											
-											<a href="/cart/"><i class="fas fa-shopping-cart"></i> <span style="color: white;">{{ cartItemCount | default:"0" }}</span> </a>
-										
+										<span><a href="{% url 'index' %}" class="customer_info"> Welcome
+												{{ request.session.customer_name }} </a>/<a
+												href="{% url 'logout' %}">LogOut</a>
+
+											<a href="/cart/"><i class="fas fa-shopping-cart"></i> <span
+													style="color: white;">{{ cartItemCount | default:"0" }}</span> </a>
+
 										</span>
 										{% else %}
-										<span><a href="{% url 'login' %}"> LogIn </a>/<a href="{% url 'register' %}">Register</a></span>
+										<span><a href="{% url 'login' %}"> LogIn </a>/<a
+												href="{% url 'register' %}">Register</a></span>
 										{% endif %}
 										<!-- <a class="shopping-cart {% if request.path == '/cart/' %}current-list-item{% endif %}" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a> -->
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<a class="mobile-hide search-bar-icon" href="#"><i
+												class="fas fa-search"></i></a>
 									</div>
 								</li>
 							</ul>
@@ -88,7 +99,7 @@
 		</div>
 	</div>
 	<!-- end header -->
-	
+
 	<!-- search area -->
 	<div class="search-area">
 		<div class="container">
@@ -98,8 +109,11 @@
 					<div class="search-bar">
 						<div class="search-bar-tablecell">
 							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
+							<form action="/search/" method="get">
+								{% csrf_token %}
+								<input type="text" placeholder="product or catagory" name="search">
+								<input type="submit">Search <i class="fas fa-search"></i></input>
+							</form>
 						</div>
 					</div>
 				</div>

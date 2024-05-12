@@ -20,6 +20,18 @@
 <!-- check out section -->
 <div class="checkout-section mt-150 mb-150">
 	<div class="container">
+		{% if messages %}
+		<h5>
+			{% for message in messages %}
+				<li style="color: black;
+				background-color: lightgreen;
+				width: 100%;
+				text-align: center;
+				padding: 14px 0;
+				border-radius: 10px;">{{ message }}</li>
+			{% endfor %}
+		</h5>
+	{% endif %}
 		<div class="row">
 			<div class="col-lg-8">
 				<div class="checkout-accordion-wrap">
