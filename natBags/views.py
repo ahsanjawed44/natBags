@@ -387,7 +387,7 @@ def verifyOrder(request, token):
         messages.success(request, 'Your order has been verified successfully!')
 
         # Redirect to the cart page
-        return redirect('') 
+        return redirect('cart') 
         
     
     except Customer.DoesNotExist:
