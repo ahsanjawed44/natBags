@@ -12,6 +12,11 @@ from django.core.mail import send_mail
 from django.db.models import Avg
 import uuid
 
+import logging
+from django.conf import settings
+
+# Configure logging
+logging.basicConfig(filename='error.log', level=logging.ERROR)
 
 def index(request):
 
@@ -130,6 +135,7 @@ def singleProduct(request, productid):
     reviewData = review_product.objects.filter(productid=productid)
     review_count = review_product.objects.filter(productid=productid).count()
 
+    
     # Aggregate average rating for the product
     product_ratings = review_product.objects.filter(productid=productid).aggregate(avg_rating=Avg('rating'))
     average_rating = product_ratings.get('avg_rating', 0)  # Get the average rating value or default to 0 if no rating
@@ -226,34 +232,7 @@ def checkout(request):
             return render(request, 'checkout.html', {'cartItem': [], 'cart': None, 'cartItemCount': 0})
     else:
         # If customer_id is not in session, render an empty cart
-        return render(request, 'index.html', {'cartItem': [], 'cart': None, 'cartItemCount': 0})
-
-
-    
-    # customer_id = request.session.get('customer_id')
-    # cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first() 
-    
-    # if cartObj:    
-    #     cartID = cartObj.id
-    #     cartItemCount = cartItems.objects.filter(cartF=cartID).count()
-    # else:        
-    #     cartItemCount = 0
-
-    # if 'customer_id' in request.session:
-    #     customer_id = request.session['customer_id']
-    #     cartItemData = cartItems.objects.filter(cartF__Customer_id=customer_id)
-    #     cartData =  cart.objects.get(Customer_id=customer_id) 
-
-    #     data = {
-    #         'cartItem': cartItemData,
-    #         'cart': cartData,
-    #         'cartItemCount': cartItemCount
-    #     }
-
-    #     return render(request, 'checkout.html', data)
-    # else:
-    #     # Handle case where user is not logged in
-    #     return redirect('/login')
+        return render(request, 'index.html', {'cartItem': [], 'cart': None, 'cartItemCount': 0})  
 
 def order(request):
     if request.method == "POST":
@@ -268,6 +247,7 @@ def order(request):
                 customer = Customer.objects.get(id=customer_id)
                 customer_name = customer.customer_name
                 customer_email = customer.customer_email
+
             except Customer.DoesNotExist:
                 # Handle the case where the customer does not exist
                 return HttpResponse('Customer not found.')
@@ -279,11 +259,26 @@ def order(request):
             url = 'verifyOrder'
             token = str(uuid.uuid4())
             
-            if customer_email:  # Check if customer_email is not None or empty
-                addOrder = orderModel.objects.create(customer_name=customer_name, customer_email=customer_email, address=address, phone=phone, total_bill=total_bill, email_token=token, customer_id=customer, cart=cart_instance, payment_method=payment_method, details=details)
-                
+            if customer_email:  # Check if customer_email is not None or empty                
                 # Call the function to send the email token
                 send_email_token(customer_email, token, url)
+                addOrder = orderModel.objects.create(customer_name=customer_name, customer_email=customer_email, address=address, phone=phone, total_bill=total_bill, email_token=token, customer_id=customer, cart=cart_instance, payment_method=payment_method, details=details)
+
+
+                cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first()
+
+                if cartObj:    
+                    cartID = cartObj.id
+                    
+                    # Step 2: Retrieve details of items in the cart
+                    cartItemsInCart = cartItems.objects.filter(cartF=cartID)
+                    
+                    # Step 3: Update product quantities
+                    for cartItem in cartItemsInCart:
+                        product = cartItem.productF
+                        product.product_quantity = product.product_quantity - cartItem.quantity
+                        product.save()
+
                 return HttpResponseRedirect('/checkout/')
             else:
                 return HttpResponse('Customer email is missing.')
@@ -315,9 +310,20 @@ def order(request):
 
 
 # Email Verification Start
+# def send_email_token(email, token, url):
+#     try:
+#         subject = "Email Verification"
+#         message = f"Please click on the following link for validation : http://127.0.0.1:8000/{url}/{token}"
+#         email_from = settings.EMAIL_HOST_USER
+#         recipients_list = [email]
+#         send_mail(subject, message, email_from, recipients_list)
+#         return True
+#     except Exception as e:
+#         print(f"Error sending email: {e}")
+#         return False
+
 def send_email_token(email, token, url):
     try:
-        
         subject = "Email Verification"
         message = f"Please click on the following link for validation : http://127.0.0.1:8000/{url}/{token}"
         email_from = settings.EMAIL_HOST_USER
@@ -325,8 +331,8 @@ def send_email_token(email, token, url):
         send_mail(subject, message, email_from, recipients_list)
         return True
     except Exception as e:
-        print(f"Error sending email: {e}")
-        return False
+        logging.error(f"Error sending email: {e}")
+        raise  # Re-raise the exception after logging it
 
 def verifyCustomer(request, token):
     try:
@@ -486,13 +492,13 @@ def remove_cart(request , cid):
 
 def plus(request, cid):
     cartItem=cartItems.objects.get(id=cid)
-    cartItem.quantity += 1  # Increment the quantity
+    cartItem.quantity += 1 
     cartItem.save() 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def minus(request,cid):
      cartItem=cartItems.objects.get(id=cid)
-     cartItem.quantity -= 1  # Increment the quantity
+     cartItem.quantity -= 1 
      cartItem.save() 
      return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 # Cart page and its operation Start
@@ -515,11 +521,11 @@ def PlaceReview(request):
 
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
             except Customer.DoesNotExist:
-                return HttpResponse("Customer does not exist.")  # Handle this case as per your requirement
+                return HttpResponse("Customer does not exist.")  
             except product.DoesNotExist:
-                return HttpResponse("Product does not exist.")  # Handle this case as per your requirement
+                return HttpResponse("Product does not exist.")  
         else:
-            return HttpResponse("Customer ID not found in session.")  # Handle this case as per your requirement
+            return HttpResponse("Customer ID not found in session.")  
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 # Customer Feedback End
