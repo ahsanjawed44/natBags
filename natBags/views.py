@@ -293,30 +293,32 @@ def order(request):
             
             url = 'verifyOrder'
             token = str(uuid.uuid4())
-            
-            if customer_email:  # Check if customer_email is not None or empty                
-                # Call the function to send the email token
-                send_email_token(customer_email, token, url)
-                addOrder = orderModel.objects.create(customer_name=customer_name, customer_email=customer_email, address=address, phone=phone, total_bill=total_bill, email_token=token, customer_id=customer, cart=cart_instance, payment_method=payment_method, details=details)
+            try:
+                if customer_email:  # Check if customer_email is not None or empty                
+                    # Call the function to send the email token
+                    send_email_token(customer_email, token, url)
+                    addOrder = orderModel.objects.create(customer_name=customer_name, customer_email=customer_email, address=address, phone=phone, total_bill=total_bill, email_token=token, customer_id=customer, cart=cart_instance, payment_method=payment_method, details=details)
 
 
-                cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first()
+                    cartObj = cart.objects.filter(Customer=customer_id, is_paid=False).first()
 
-                if cartObj:    
-                    cartID = cartObj.id
-                    
-                    # Step 2: Retrieve details of items in the cart
-                    cartItemsInCart = cartItems.objects.filter(cartF=cartID)
-                    
-                    # Step 3: Update product quantities
-                    for cartItem in cartItemsInCart:
-                        product = cartItem.productF
-                        product.product_quantity = product.product_quantity - cartItem.quantity
-                        product.save()
-                messages.success(request, 'Email is been send for verification. Confirm your order from your Gmail account.')
-                return HttpResponseRedirect('/checkout/')
-            else:
-                return HttpResponse('Customer email is missing.')
+                    if cartObj:    
+                        cartID = cartObj.id
+                        
+                        # Step 2: Retrieve details of items in the cart
+                        cartItemsInCart = cartItems.objects.filter(cartF=cartID)
+                        
+                        # Step 3: Update product quantities
+                        for cartItem in cartItemsInCart:
+                            product = cartItem.productF
+                            product.product_quantity = product.product_quantity - cartItem.quantity
+                            product.save()
+                    messages.success(request, 'Email is been send for verification. Confirm your order from your Gmail account.')
+                    return HttpResponseRedirect('/checkout/')
+                else:
+                    return HttpResponse('Customer email is missing.')
+            except Exception as e:
+                e.logging.error(f"Check your Internet connection: {e}")
         else:
             return render(request, 'login.html')
     else:
