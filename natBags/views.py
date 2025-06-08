@@ -10,10 +10,9 @@ from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.db.models import Avg
-import uuid
+import uuid,logging,smtplib
 
-import logging
-from django.conf import settings
+
 
 # Configure logging
 logging.basicConfig(filename='error.log', level=logging.ERROR)
@@ -318,7 +317,7 @@ def order(request):
                 else:
                     return HttpResponse('Customer email is missing.')
             except Exception as e:
-                e.logging.error(f"Check your Internet connection: {e}")
+                logging.error(f"Check your Internet connection: {e}")
         else:
             return render(request, 'login.html')
     else:
