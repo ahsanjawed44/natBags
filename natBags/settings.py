@@ -139,7 +139,7 @@ EMAIL_HOST_USER ='bc200406540@vu.edu.pk'
 EMAIL_HOST_PASSWORD ='fjoc htcw cbul hrpe'
 EMAIL_USE_TLS = True
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # Static files configuration
 STATIC_URL = '/static/'
