@@ -268,3 +268,160 @@ WARNING:django.request:Not Found: /Media/products/product-img-3_ip6Onqp.jpg
 WARNING:django.request:Not Found: /Media/news/news-bg-2.jpg
 WARNING:django.request:Not Found: /Media/news/news-bg-6.jpg
 WARNING:django.request:Not Found: /Media/news/news-bg-5.jpg
+WARNING:django.request:Not Found: /Media/products/pexels-luis-quintero-2263817_t5NS60M.jpg
+WARNING:django.request:Not Found: /Media/products/korie-cull-QWIJ50qBAJ8-unsplash_WsBwckl.jpg
+WARNING:django.request:Not Found: /Media/products/product-img-3_ip6Onqp.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-2.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-6.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-5.jpg
+WARNING:django.request:Not Found: /favicon.ico
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '192.168.74.229:8000'. You may need to add '192.168.74.229' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.74.229:8000'. You may need to add '192.168.74.229' to ALLOWED_HOSTS.
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '192.168.74.229:8000'. You may need to add '192.168.74.229' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.74.229:8000'. You may need to add '192.168.74.229' to ALLOWED_HOSTS.
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '192.168.74.229:8000'. You may need to add '192.168.74.229' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.74.229:8000'. You may need to add '192.168.74.229' to ALLOWED_HOSTS.
+ERROR:django.security.DisallowedHost:Invalid HTTP_HOST header: '192.168.74.229:8000'. You may need to add '192.168.74.229' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.74.229:8000'. You may need to add '192.168.74.229' to ALLOWED_HOSTS.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\NAT-Bags-VU\natBags\natBags\settings.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\NAT-Bags-VU\natBags\natBags\settings.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\NAT-Bags-VU\natBags\natBags\settings.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\NAT-Bags-VU\natBags\natBags\settings.py changed, reloading.
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\NAT-Bags-VU\natBags\natBags\settings.py changed, reloading.
+WARNING:django.request:Not Found: /Media/products/korie-cull-QWIJ50qBAJ8-unsplash_WsBwckl.jpg
+WARNING:django.request:Not Found: /Media/products/pexels-luis-quintero-2263817_t5NS60M.jpg
+WARNING:django.request:Not Found: /Media/products/product-img-3_ip6Onqp.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-2.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-6.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-5.jpg
+WARNING:django.request:Not Found: /Media/products/pexels-luis-quintero-2263817_t5NS60M.jpg
+WARNING:django.request:Not Found: /Media/products/korie-cull-QWIJ50qBAJ8-unsplash_WsBwckl.jpg
+WARNING:django.request:Not Found: /Media/products/product-img-3_ip6Onqp.jpg
+WARNING:django.request:Not Found: /Media/products/pexels-skylar-kang-6044266_EN8o1nm.jpg
+WARNING:django.request:Not Found: /Media/products/product-img-6.jpg
+WARNING:django.request:Not Found: /Media/products/adejoke-drilling-XBqD7PZp5mQ-unsplash_W0w5RIm.jpg
+WARNING:django.request:Not Found: /Media/products/k8-VCuSV_UJbBU-unsplash_ON34qft.jpg
+WARNING:django.request:Not Found: /Media/products/pexels-cottonbro-studio-6532099_JJmLeRV.jpg
+WARNING:django.request:Not Found: /Media/products/mostafa-mahmoudi-J4DnKxz_3sA-unsplash_gv9aqY8.jpg
+WARNING:django.request:Not Found: /Media/products/pexels-luis-quintero-2263817_t5NS60M.jpg
+WARNING:django.request:Not Found: /Media/products/korie-cull-QWIJ50qBAJ8-unsplash_WsBwckl.jpg
+WARNING:django.request:Not Found: /Media/products/product-img-3_ip6Onqp.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-5.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-2.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-6.jpg
+WARNING:django.request:Not Found: /Media/products/korie-cull-QWIJ50qBAJ8-unsplash_WsBwckl.jpg
+WARNING:django.request:Not Found: /Media/products/pexels-luis-quintero-2263817_t5NS60M.jpg
+WARNING:django.request:Not Found: /Media/products/product-img-3_ip6Onqp.jpg
+WARNING:django.request:Not Found: /Media/products/pexels-skylar-kang-6044266_EN8o1nm.jpg
+WARNING:django.request:Not Found: /Media/products/adejoke-drilling-XBqD7PZp5mQ-unsplash_W0w5RIm.jpg
+WARNING:django.request:Not Found: /Media/products/product-img-6.jpg
+WARNING:django.request:Not Found: /Media/products/k8-VCuSV_UJbBU-unsplash_ON34qft.jpg
+WARNING:django.request:Not Found: /Media/products/pexels-cottonbro-studio-6532099_JJmLeRV.jpg
+WARNING:django.request:Not Found: /Media/products/mostafa-mahmoudi-J4DnKxz_3sA-unsplash_gv9aqY8.jpg
+WARNING:django.request:Not Found: /favicon.ico
+WARNING:django.request:Not Found: /media/products/kelly-sikkema-1Pgq9ZpIatI-unsplash.jpg
+WARNING:django.request:Not Found: /media/static/css/all.min.css
+WARNING:django.request:Not Found: /media/static/css/owl.carousel.css
+WARNING:django.request:Not Found: /media/static/bootstrap/css/bootstrap.min.css
+WARNING:django.request:Not Found: /media/static/css/magnific-popup.css
+WARNING:django.request:Not Found: /media/static/css/meanmenu.min.css
+WARNING:django.request:Not Found: /media/static/css/animate.css
+WARNING:django.request:Not Found: /media/static/css/main.css
+WARNING:django.request:Not Found: /media/static/css/responsive.css
+WARNING:django.request:Not Found: /media/static/img/logo.png
+WARNING:django.request:Not Found: /media/static/img/company-logos/1.png
+WARNING:django.request:Not Found: /media/static/img/company-logos/2.png
+WARNING:django.request:Not Found: /media/static/js/jquery-1.11.3.min.js
+WARNING:django.request:Not Found: /media/static/bootstrap/js/bootstrap.min.js
+WARNING:django.request:Not Found: /media/static/img/company-logos/3.png
+WARNING:django.request:Not Found: /media/static/img/company-logos/4.png
+WARNING:django.request:Not Found: /media/static/js/jquery.countdown.js
+WARNING:django.request:Not Found: /media/static/js/jquery.isotope-3.0.6.min.js
+WARNING:django.request:Not Found: /media/static/js/waypoints.js
+WARNING:django.request:Not Found: /media/static/js/owl.carousel.min.js
+WARNING:django.request:Not Found: /media/static/js/jquery.meanmenu.min.js
+WARNING:django.request:Not Found: /media/static/js/sticker.js
+WARNING:django.request:Not Found: /media/static/js/jquery.magnific-popup.min.js
+WARNING:django.request:Not Found: /media/static/img/company-logos/5.png
+WARNING:django.request:Not Found: /media/static/js/main.js
+WARNING:django.request:Not Found: /media/static/img/favicon.png
+WARNING:django.request:Not Found: /media/products/product-img-6.jpg
+WARNING:django.request:Not Found: /media/static/css/all.min.css
+WARNING:django.request:Not Found: /media/static/bootstrap/css/bootstrap.min.css
+WARNING:django.request:Not Found: /media/static/css/owl.carousel.css
+WARNING:django.request:Not Found: /media/static/css/magnific-popup.css
+WARNING:django.request:Not Found: /media/static/css/animate.css
+WARNING:django.request:Not Found: /media/static/css/main.css
+WARNING:django.request:Not Found: /media/static/css/responsive.css
+WARNING:django.request:Not Found: /media/static/css/meanmenu.min.css
+WARNING:django.request:Not Found: /media/static/img/company-logos/1.png
+WARNING:django.request:Not Found: /media/static/img/logo.png
+WARNING:django.request:Not Found: /media/static/img/company-logos/4.png
+WARNING:django.request:Not Found: /media/static/bootstrap/js/bootstrap.min.js
+WARNING:django.request:Not Found: /media/static/js/jquery-1.11.3.min.js
+WARNING:django.request:Not Found: /media/static/img/company-logos/2.png
+WARNING:django.request:Not Found: /media/static/js/jquery.countdown.js
+WARNING:django.request:Not Found: /media/static/img/company-logos/3.png
+WARNING:django.request:Not Found: /media/static/img/company-logos/5.png
+WARNING:django.request:Not Found: /media/static/js/waypoints.js
+WARNING:django.request:Not Found: /media/static/js/sticker.js
+WARNING:django.request:Not Found: /media/static/js/jquery.isotope-3.0.6.min.js
+WARNING:django.request:Not Found: /media/static/js/jquery.magnific-popup.min.js
+WARNING:django.request:Not Found: /media/static/js/jquery.meanmenu.min.js
+WARNING:django.request:Not Found: /media/static/js/owl.carousel.min.js
+WARNING:django.request:Not Found: /media/static/js/main.js
+INFO:django.utils.autoreload:D:\Web Development\Python\Django\NatBag\NAT-Bags-VU\natBags\natBags\settings.py changed, reloading.
+WARNING:django.request:Not Found: /Media/products/pexels-luis-quintero-2263817_t5NS60M.jpg
+WARNING:django.request:Not Found: /Media/products/korie-cull-QWIJ50qBAJ8-unsplash_WsBwckl.jpg
+WARNING:django.request:Not Found: /Media/products/product-img-3_ip6Onqp.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-2.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-6.jpg
+WARNING:django.request:Not Found: /Media/news/news-bg-5.jpg

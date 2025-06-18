@@ -27,7 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['your-app-name.onrender.com',
     'localhost',
-    '127.0.0.1']
+    '127.0.0.1','*']
 
 
 # Application definition
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,7 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'natBags.wsgi.application'
 
-DJANGO_SETTINGS_MODULE = 'natBags.settings'
+# DJANGO_SETTINGS_MODULE = 'natBags.settings'
 
 
 # Database
@@ -151,3 +151,4 @@ STATICFILES_DIRS = [
 # Media files configuration
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
